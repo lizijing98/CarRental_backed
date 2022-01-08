@@ -10,7 +10,7 @@ CREATE TABLE `tb_car`
     type        VARCHAR(255)        NOT NULL COMMENT '车型',
     price       DOUBLE(10, 2)       NULL COMMENT '租金/时',
     deposit     DOUBLE(10, 2)       NULL COMMENT '定金',
-    address     VARCHAR(255)        NULL COMMENT '车辆当前地址',
+    address     VARCHAR(255)        NULL COMMENT '车辆所在地址',
     img         VARCHAR(255)        NULL COMMENT '车辆照片',
     status      VARCHAR(255)        NULL COMMENT '车辆当前状态',
     description VARCHAR(255)        NULL COMMENT '备注',
@@ -20,7 +20,7 @@ CREATE TABLE `tb_car`
     is_usable   TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '可用标记,0 为可用,1 为不可用',
     PRIMARY KEY pk_car_id (id) USING BTREE COMMENT '车辆 ID 主键'
 )
-    COMMENT '用户表'
+    COMMENT '车辆表'
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4;
 
@@ -53,7 +53,9 @@ CREATE TABLE `tb_order`
     order_num   VARCHAR(255)        NOT NULL UNIQUE COMMENT '订单编号',
     user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
     car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
-    operator_id BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
+    operator_id BIGINT(12) UNSIGNED NULL COMMENT '操作员 ID',
+    start_time  TIMESTAMP           NOT NULL COMMENT '开始时间',
+    finish_time TIMESTAMP           NOT NULL COMMENT '结束时间',
     total_price DOUBLE(10, 2)       NULL COMMENT '订单总价',
     description VARCHAR(255)        NULL COMMENT '备注',
     create_time TIMESTAMP           NOT NULL DEFAULT NOW() COMMENT '创建时间',
@@ -83,8 +85,26 @@ CREATE TABLE `tb_repair`
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4;
 
-DROP TABLE IF EXISTS `tb_role`;
-CREATE TABLE `tb_role`
+DROP TABLE IF EXISTS `tb_accident`;
+CREATE TABLE `tb_accident`
+(
+    id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '事故单 ID',
+    order_id    BIGINT(12) UNSIGNED NOT NULL COMMENT '事故单 ID',
+    user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
+    car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
+    operator_id BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
+    description VARCHAR(255)        NULL COMMENT '备注',
+    create_time TIMESTAMP           NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    update_time TIMESTAMP           NULL COMMENT '更新时间',
+    is_deleted  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
+    PRIMARY KEY pk_order_id (id) USING BTREE COMMENT '事故单 ID 主键'
+)
+    COMMENT '事故单表'
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4;
+
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE `sys_role`
 (
     id          INTEGER      NOT NULL AUTO_INCREMENT COMMENT '角色 ID',
     role_name   VARCHAR(255) NOT NULL UNIQUE COMMENT '角色名称',
@@ -92,15 +112,15 @@ CREATE TABLE `tb_role`
     description VARCHAR(255) NULL COMMENT '备注',
     create_time TIMESTAMP    NOT NULL DEFAULT NOW() COMMENT '创建时间',
     update_time TIMESTAMP    NULL COMMENT '更新时间',
-    is_deleted  TINYINT      NOT NULL DEFAULT 0 COMMENT '0 代表未删除，1 代表已删除',
+    is_deleted  TINYINT      NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_role_id (id) USING BTREE COMMENT '角色 ID 主键'
 )
     COMMENT '角色表'
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4;
 
-DROP TABLE IF EXISTS `tb_permission`;
-CREATE TABLE `tb_permission`
+DROP TABLE IF EXISTS `sys_permission`;
+CREATE TABLE `sys_permission`
 (
     id              INTEGER      NOT NULL AUTO_INCREMENT COMMENT '权限 ID',
     permission_name VARCHAR(255) NOT NULL UNIQUE COMMENT '权限名称',
@@ -108,22 +128,22 @@ CREATE TABLE `tb_permission`
     description     VARCHAR(255) NULL COMMENT '备注',
     create_time     TIMESTAMP    NOT NULL DEFAULT NOW() COMMENT '创建时间',
     update_time     TIMESTAMP    NULL COMMENT '更新时间',
-    is_deleted      TINYINT      NOT NULL DEFAULT 0 COMMENT '0 代表未删除，1 代表已删除',
+    is_deleted      TINYINT      NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_permission_id (id) USING BTREE COMMENT '权限 ID 主键'
 )
     COMMENT '权限表'
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4;
 
-DROP TABLE IF EXISTS `tb_user_role`;
-CREATE TABLE `tb_user_role`
+DROP TABLE IF EXISTS `sys_user_role`;
+CREATE TABLE `sys_user_role`
 (
     id          INTEGER   NOT NULL AUTO_INCREMENT COMMENT '用户_角色表 ID',
     user_id     INTEGER   NOT NULL COMMENT '用户 ID',
     role_id     INTEGER   NOT NULL COMMENT '角色 ID',
     create_time TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '创建时间',
     update_time TIMESTAMP NULL COMMENT '更新时间',
-    is_deleted  TINYINT   NOT NULL DEFAULT 0 COMMENT '0 代表未删除，1 代表已删除',
+    is_deleted  TINYINT   NOT NULL DEFAULT 0 COMMENT '0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_user_role_id (id) USING BTREE COMMENT '用户_角色表 ID 主键',
     UNIQUE INDEX uni_idx_user_id (user_id) USING BTREE COMMENT '用户_角色表 用户 ID 索引',
     INDEX idx_role_id (role_id) USING BTREE COMMENT '用户_角色表 角色 ID 索引'
@@ -132,15 +152,15 @@ CREATE TABLE `tb_user_role`
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4;
 
-DROP TABLE IF EXISTS `tb_role_permission`;
-CREATE TABLE `tb_role_permission`
+DROP TABLE IF EXISTS `sys_role_permission`;
+CREATE TABLE `sys_role_permission`
 (
     id            INTEGER   NOT NULL AUTO_INCREMENT COMMENT '角色_权限表',
     role_id       INTEGER   NOT NULL COMMENT '角色 ID',
     permission_id INTEGER   NOT NULL COMMENT '权限 ID',
     create_time   TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '创建时间',
     update_time   TIMESTAMP NULL COMMENT '更新时间',
-    is_deleted    TINYINT   NOT NULL DEFAULT 0 COMMENT '0 代表未删除，1 代表已删除',
+    is_deleted    TINYINT   NOT NULL DEFAULT 0 COMMENT '0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_role_permission_id (id) USING BTREE COMMENT '角色_权限表 ID 主键',
     INDEX idx_role_id (role_id) USING BTREE COMMENT '角色_权限表 角色 ID 索引',
     INDEX idx_permission_id (permission_id) USING BTREE COMMENT '角色_权限表 权限 ID 索引'
