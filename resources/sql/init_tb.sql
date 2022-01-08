@@ -5,10 +5,11 @@ DROP TABLE IF EXISTS `tb_car`;
 CREATE TABLE `tb_car`
 (
     id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '车辆 ID',
-    car_number  VARCHAR(255)        NOT NULL COMMENT '车牌号',
+    car_number  VARCHAR(255)        NOT NULL UNIQUE COMMENT '车牌号',
     brand       VARCHAR(255)        NOT NULL COMMENT '品牌',
+    model       VARCHAR(255)        NOT NULL COMMENT '型号',
     type        VARCHAR(255)        NOT NULL COMMENT '车型',
-    price       DOUBLE(10, 2)       NULL COMMENT '租金/时',
+    price       DOUBLE(10, 2)       NULL COMMENT '租金/天',
     deposit     DOUBLE(10, 2)       NULL COMMENT '定金',
     address     VARCHAR(255)        NULL COMMENT '车辆所在地址',
     img         VARCHAR(255)        NULL COMMENT '车辆照片',
@@ -18,7 +19,8 @@ CREATE TABLE `tb_car`
     update_time TIMESTAMP           NULL COMMENT '更新时间',
     is_deleted  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     is_usable   TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '可用标记,0 为可用,1 为不可用',
-    PRIMARY KEY pk_car_id (id) USING BTREE COMMENT '车辆 ID 主键'
+    PRIMARY KEY pk_car_id (id) USING BTREE COMMENT '车辆 ID 主键',
+    UNIQUE INDEX idx_car_num (car_number) USING BTREE COMMENT '车牌号索引'
 )
     COMMENT '车辆表'
     ENGINE = InnoDB
@@ -40,7 +42,7 @@ CREATE TABLE `tb_user`
     is_deleted   TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     is_disable   TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '禁用标记,0 代表未禁用,1 代表已禁用',
     PRIMARY KEY pk_user_id (id) USING BTREE COMMENT '用户 ID 主键',
-    UNIQUE INDEX uni_idx_username (username) USING BTREE COMMENT '用户名索引'
+    UNIQUE INDEX idx_username (username) USING BTREE COMMENT '用户名索引'
 )
     COMMENT '用户表'
     ENGINE = InnoDB
@@ -75,6 +77,7 @@ CREATE TABLE `tb_repair`
     user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
     car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
     operator_id BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
+    status      VARCHAR(255)        NULL COMMENT '当前状态',
     description VARCHAR(255)        NULL COMMENT '备注',
     create_time TIMESTAMP           NOT NULL DEFAULT NOW() COMMENT '创建时间',
     update_time TIMESTAMP           NULL COMMENT '更新时间',
@@ -93,6 +96,7 @@ CREATE TABLE `tb_accident`
     user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
     car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
     operator_id BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
+    status      VARCHAR(255)        NULL COMMENT '当前状态',
     description VARCHAR(255)        NULL COMMENT '备注',
     create_time TIMESTAMP           NOT NULL DEFAULT NOW() COMMENT '创建时间',
     update_time TIMESTAMP           NULL COMMENT '更新时间',
