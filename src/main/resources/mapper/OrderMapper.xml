@@ -3,7 +3,7 @@
 <mapper namespace="com.lizijing.carrental.mapper.OrderMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lizijing.carrental.bean.Order">
+    <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.Order">
         <id column="id" property="id" />
         <result column="order_num" property="orderNum" />
         <result column="user_id" property="userId" />

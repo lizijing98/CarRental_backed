@@ -1,4 +1,4 @@
-package com.lizijing.carrental.bean;
+package com.lizijing.carrental.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 订单表
+ * 门店表
  * </p>
  *
  * @author LiZijing
@@ -25,43 +25,31 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("tb_order")
-@ApiModel(value = "Order对象", description = "订单表")
-public class Order implements Serializable {
+@TableName("tb_store")
+@ApiModel(value = "Store对象", description = "门店表")
+public class Store implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("订单 ID")
+    @ApiModelProperty("门店 ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("订单编号")
-    @TableField("order_num")
-    private String orderNum;
+    @ApiModelProperty("门店名称")
+    @TableField("store_name")
+    private String storeName;
 
-    @ApiModelProperty("用户 ID")
-    @TableField("user_id")
-    private Long userId;
+    @ApiModelProperty("门店地址")
+    @TableField("address")
+    private String address;
 
-    @ApiModelProperty("车辆 ID")
-    @TableField("car_id")
-    private Long carId;
+    @ApiModelProperty("门店车辆存放上限")
+    @TableField("stock_limit")
+    private Integer stockLimit;
 
-    @ApiModelProperty("操作员 ID")
-    @TableField("operator_id")
-    private Long operatorId;
-
-    @ApiModelProperty("开始时间")
-    @TableField("start_time")
-    private LocalDateTime startTime;
-
-    @ApiModelProperty("结束时间")
-    @TableField("finish_time")
-    private LocalDateTime finishTime;
-
-    @ApiModelProperty("订单总价")
-    @TableField("total_price")
-    private Double totalPrice;
+    @ApiModelProperty("店长 ID")
+    @TableField("manager_id")
+    private Long managerId;
 
     @ApiModelProperty("备注")
     @TableField("description")
@@ -79,6 +67,10 @@ public class Order implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Boolean isDeleted;
+
+    @ApiModelProperty("禁用标记,0 代表未禁用,1 代表已禁用")
+    @TableField("is_disable")
+    private Boolean isDisable;
 
 
 }

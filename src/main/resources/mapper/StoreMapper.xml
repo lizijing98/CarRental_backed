@@ -3,7 +3,7 @@
 <mapper namespace="com.lizijing.carrental.mapper.StoreMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lizijing.carrental.bean.Store">
+    <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.Store">
         <id column="id" property="id" />
         <result column="store_name" property="storeName" />
         <result column="address" property="address" />

@@ -1,6 +1,6 @@
 package com.lizijing.carrental.mapper;
 
-import com.lizijing.carrental.bean.User;
+import com.lizijing.carrental.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

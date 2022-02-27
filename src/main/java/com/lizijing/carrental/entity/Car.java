@@ -1,4 +1,4 @@
-package com.lizijing.carrental.bean;
+package com.lizijing.carrental.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 用户表
+ * 车辆表
  * </p>
  *
  * @author LiZijing
@@ -25,43 +25,51 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("tb_user")
-@ApiModel(value = "User对象", description = "用户表")
-public class User implements Serializable {
+@TableName("tb_car")
+@ApiModel(value = "Car对象", description = "车辆表")
+public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("用户 ID")
+    @ApiModelProperty("车辆 ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("用户名")
-    @TableField("username")
-    private String username;
+    @ApiModelProperty("车牌号")
+    @TableField("car_number")
+    private String carNumber;
 
-    @ApiModelProperty("用户昵称")
-    @TableField("nickname")
-    private String nickname;
+    @ApiModelProperty("品牌")
+    @TableField("brand")
+    private String brand;
 
-    @ApiModelProperty("用户密码")
-    @TableField("`password`")
-    private String password;
+    @ApiModelProperty("型号")
+    @TableField("model")
+    private String model;
 
-    @ApiModelProperty("真实姓名")
-    @TableField("real_name")
-    private String realName;
+    @ApiModelProperty("车型")
+    @TableField("`type`")
+    private String type;
 
-    @ApiModelProperty("性别")
-    @TableField("sex")
-    private String sex;
+    @ApiModelProperty("租金/天")
+    @TableField("price")
+    private Double price;
 
-    @ApiModelProperty("手机号码")
-    @TableField("phone_number")
-    private String phoneNumber;
+    @ApiModelProperty("定金")
+    @TableField("deposit")
+    private Double deposit;
 
-    @ApiModelProperty("邮箱")
-    @TableField("email")
-    private String email;
+    @ApiModelProperty("车辆所在地址")
+    @TableField("address")
+    private String address;
+
+    @ApiModelProperty("车辆照片")
+    @TableField("img")
+    private String img;
+
+    @ApiModelProperty("车辆当前状态")
+    @TableField("`status`")
+    private String status;
 
     @ApiModelProperty("备注")
     @TableField("description")
@@ -80,9 +88,9 @@ public class User implements Serializable {
     @TableLogic
     private Boolean isDeleted;
 
-    @ApiModelProperty("禁用标记,0 代表未禁用,1 代表已禁用")
-    @TableField("is_disable")
-    private Boolean isDisable;
+    @ApiModelProperty("可用标记,0 为可用,1 为不可用")
+    @TableField("is_usable")
+    private Boolean isUsable;
 
 
 }

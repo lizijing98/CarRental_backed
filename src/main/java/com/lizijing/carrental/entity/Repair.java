@@ -1,4 +1,4 @@
-package com.lizijing.carrental.bean;
+package com.lizijing.carrental.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 门店表
+ * 维修单表
  * </p>
  *
  * @author LiZijing
@@ -25,31 +25,35 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("tb_store")
-@ApiModel(value = "Store对象", description = "门店表")
-public class Store implements Serializable {
+@TableName("tb_repair")
+@ApiModel(value = "Repair对象", description = "维修单表")
+public class Repair implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("门店 ID")
+    @ApiModelProperty("维修单 ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("门店名称")
-    @TableField("store_name")
-    private String storeName;
+    @ApiModelProperty("维修单 ID")
+    @TableField("order_id")
+    private Long orderId;
 
-    @ApiModelProperty("门店地址")
-    @TableField("address")
-    private String address;
+    @ApiModelProperty("用户 ID")
+    @TableField("user_id")
+    private Long userId;
 
-    @ApiModelProperty("门店车辆存放上限")
-    @TableField("stock_limit")
-    private Integer stockLimit;
+    @ApiModelProperty("车辆 ID")
+    @TableField("car_id")
+    private Long carId;
 
-    @ApiModelProperty("店长 ID")
-    @TableField("manager_id")
-    private Long managerId;
+    @ApiModelProperty("操作员 ID")
+    @TableField("operator_id")
+    private Long operatorId;
+
+    @ApiModelProperty("当前状态")
+    @TableField("`status`")
+    private String status;
 
     @ApiModelProperty("备注")
     @TableField("description")
@@ -67,10 +71,6 @@ public class Store implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Boolean isDeleted;
-
-    @ApiModelProperty("禁用标记,0 代表未禁用,1 代表已禁用")
-    @TableField("is_disable")
-    private Boolean isDisable;
 
 
 }
