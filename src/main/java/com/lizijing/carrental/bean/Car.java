@@ -80,7 +80,7 @@ public class Car implements Serializable {
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
-    @TableField("update_time")
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     @ApiModelProperty("删除标记,0 代表未删除,1 代表已删除")

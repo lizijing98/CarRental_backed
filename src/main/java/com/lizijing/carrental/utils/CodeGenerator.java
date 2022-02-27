@@ -14,7 +14,6 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
-import com.baomidou.mybatisplus.generator.fill.Property;
 import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 
 import java.util.Collections;
@@ -97,7 +96,7 @@ public class CodeGenerator {
                                 .logicDeleteColumnName("is_deleted")
                                 .idType(IdType.AUTO)
                                 .addTableFills(new Column("create_time", FieldFill.INSERT))
-                                .addTableFills(new Property("update_time", FieldFill.INSERT_UPDATE))
+                                .addTableFills(new Column("update_time", FieldFill.INSERT_UPDATE))
                                 // Controller 策略配置
                                 .controllerBuilder()
                                 .enableHyphenStyle()
