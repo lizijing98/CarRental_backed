@@ -1,6 +1,6 @@
 package com.lizijing.carrental.service;
 
-import com.lizijing.carrental.entity.Car;
+import com.lizijing.carrental.entity.bean.Car;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

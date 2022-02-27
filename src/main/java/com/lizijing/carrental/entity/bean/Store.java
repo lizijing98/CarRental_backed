@@ -1,4 +1,4 @@
-package com.lizijing.carrental.entity;
+package com.lizijing.carrental.entity.bean;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;

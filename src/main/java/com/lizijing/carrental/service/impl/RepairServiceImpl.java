@@ -1,6 +1,6 @@
 package com.lizijing.carrental.service.impl;
 
-import com.lizijing.carrental.entity.Repair;
+import com.lizijing.carrental.entity.bean.Repair;
 import com.lizijing.carrental.mapper.RepairMapper;
 import com.lizijing.carrental.service.RepairService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

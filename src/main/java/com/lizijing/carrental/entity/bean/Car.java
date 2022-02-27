@@ -1,4 +1,4 @@
-package com.lizijing.carrental.entity;
+package com.lizijing.carrental.entity.bean;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 维修单表
+ * 车辆表
  * </p>
  *
  * @author LiZijing
@@ -25,33 +25,49 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("tb_repair")
-@ApiModel(value = "Repair对象", description = "维修单表")
-public class Repair implements Serializable {
+@TableName("tb_car")
+@ApiModel(value = "Car对象", description = "车辆表")
+public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("维修单 ID")
+    @ApiModelProperty("车辆 ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("维修单 ID")
-    @TableField("order_id")
-    private Long orderId;
+    @ApiModelProperty("车牌号")
+    @TableField("car_number")
+    private String carNumber;
 
-    @ApiModelProperty("用户 ID")
-    @TableField("user_id")
-    private Long userId;
+    @ApiModelProperty("品牌")
+    @TableField("brand")
+    private String brand;
 
-    @ApiModelProperty("车辆 ID")
-    @TableField("car_id")
-    private Long carId;
+    @ApiModelProperty("型号")
+    @TableField("model")
+    private String model;
 
-    @ApiModelProperty("操作员 ID")
-    @TableField("operator_id")
-    private Long operatorId;
+    @ApiModelProperty("车型")
+    @TableField("`type`")
+    private String type;
 
-    @ApiModelProperty("当前状态")
+    @ApiModelProperty("租金/天")
+    @TableField("price")
+    private Double price;
+
+    @ApiModelProperty("定金")
+    @TableField("deposit")
+    private Double deposit;
+
+    @ApiModelProperty("车辆所在地址")
+    @TableField("address")
+    private String address;
+
+    @ApiModelProperty("车辆照片")
+    @TableField("img")
+    private String img;
+
+    @ApiModelProperty("车辆当前状态")
     @TableField("`status`")
     private String status;
 
@@ -71,6 +87,10 @@ public class Repair implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Boolean isDeleted;
+
+    @ApiModelProperty("可用标记,0 为可用,1 为不可用")
+    @TableField("is_usable")
+    private Boolean isUsable;
 
 
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.lizijing.carrental.mapper.CarMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.Car">
+    <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.bean.Car">
         <id column="id" property="id" />
         <result column="car_number" property="carNumber" />
         <result column="brand" property="brand" />

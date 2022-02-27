@@ -1,4 +1,4 @@
-package com.lizijing.carrental.entity;
+package com.lizijing.carrental.entity.bean;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 订单表
+ * 用户表
  * </p>
  *
  * @author LiZijing
@@ -25,43 +25,43 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("tb_order")
-@ApiModel(value = "Order对象", description = "订单表")
-public class Order implements Serializable {
+@TableName("tb_user")
+@ApiModel(value = "User对象", description = "用户表")
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("订单 ID")
+    @ApiModelProperty("用户 ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("订单编号")
-    @TableField("order_num")
-    private String orderNum;
+    @ApiModelProperty("用户名")
+    @TableField("username")
+    private String username;
 
-    @ApiModelProperty("用户 ID")
-    @TableField("user_id")
-    private Long userId;
+    @ApiModelProperty("用户昵称")
+    @TableField("nickname")
+    private String nickname;
 
-    @ApiModelProperty("车辆 ID")
-    @TableField("car_id")
-    private Long carId;
+    @ApiModelProperty("用户密码")
+    @TableField("`password`")
+    private String password;
 
-    @ApiModelProperty("操作员 ID")
-    @TableField("operator_id")
-    private Long operatorId;
+    @ApiModelProperty("真实姓名")
+    @TableField("real_name")
+    private String realName;
 
-    @ApiModelProperty("开始时间")
-    @TableField("start_time")
-    private LocalDateTime startTime;
+    @ApiModelProperty("性别")
+    @TableField("sex")
+    private String sex;
 
-    @ApiModelProperty("结束时间")
-    @TableField("finish_time")
-    private LocalDateTime finishTime;
+    @ApiModelProperty("手机号码")
+    @TableField("phone_number")
+    private String phoneNumber;
 
-    @ApiModelProperty("订单总价")
-    @TableField("total_price")
-    private Double totalPrice;
+    @ApiModelProperty("邮箱")
+    @TableField("email")
+    private String email;
 
     @ApiModelProperty("备注")
     @TableField("description")
@@ -79,6 +79,10 @@ public class Order implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Boolean isDeleted;
+
+    @ApiModelProperty("禁用标记,0 代表未禁用,1 代表已禁用")
+    @TableField("is_disable")
+    private Boolean isDisable;
 
 
 }

@@ -1,4 +1,4 @@
-package com.lizijing.carrental.entity;
+package com.lizijing.carrental.entity.bean;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 车辆表
+ * 订单表
  * </p>
  *
  * @author LiZijing
@@ -25,51 +25,43 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("tb_car")
-@ApiModel(value = "Car对象", description = "车辆表")
-public class Car implements Serializable {
+@TableName("tb_order")
+@ApiModel(value = "Order对象", description = "订单表")
+public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("车辆 ID")
+    @ApiModelProperty("订单 ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("车牌号")
-    @TableField("car_number")
-    private String carNumber;
+    @ApiModelProperty("订单编号")
+    @TableField("order_num")
+    private String orderNum;
 
-    @ApiModelProperty("品牌")
-    @TableField("brand")
-    private String brand;
+    @ApiModelProperty("用户 ID")
+    @TableField("user_id")
+    private Long userId;
 
-    @ApiModelProperty("型号")
-    @TableField("model")
-    private String model;
+    @ApiModelProperty("车辆 ID")
+    @TableField("car_id")
+    private Long carId;
 
-    @ApiModelProperty("车型")
-    @TableField("`type`")
-    private String type;
+    @ApiModelProperty("操作员 ID")
+    @TableField("operator_id")
+    private Long operatorId;
 
-    @ApiModelProperty("租金/天")
-    @TableField("price")
-    private Double price;
+    @ApiModelProperty("开始时间")
+    @TableField("start_time")
+    private LocalDateTime startTime;
 
-    @ApiModelProperty("定金")
-    @TableField("deposit")
-    private Double deposit;
+    @ApiModelProperty("结束时间")
+    @TableField("finish_time")
+    private LocalDateTime finishTime;
 
-    @ApiModelProperty("车辆所在地址")
-    @TableField("address")
-    private String address;
-
-    @ApiModelProperty("车辆照片")
-    @TableField("img")
-    private String img;
-
-    @ApiModelProperty("车辆当前状态")
-    @TableField("`status`")
-    private String status;
+    @ApiModelProperty("订单总价")
+    @TableField("total_price")
+    private Double totalPrice;
 
     @ApiModelProperty("备注")
     @TableField("description")
@@ -87,10 +79,6 @@ public class Car implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Boolean isDeleted;
-
-    @ApiModelProperty("可用标记,0 为可用,1 为不可用")
-    @TableField("is_usable")
-    private Boolean isUsable;
 
 
 }

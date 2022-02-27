@@ -3,7 +3,7 @@
 <mapper namespace="com.lizijing.carrental.mapper.RepairMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.Repair">
+    <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.bean.Repair">
         <id column="id" property="id" />
         <result column="order_id" property="orderId" />
         <result column="user_id" property="userId" />

@@ -1,6 +1,6 @@
 package com.lizijing.carrental.service.impl;
 
-import com.lizijing.carrental.entity.User;
+import com.lizijing.carrental.entity.bean.User;
 import com.lizijing.carrental.mapper.UserMapper;
 import com.lizijing.carrental.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

@@ -1,4 +1,4 @@
-package com.lizijing.carrental.entity;
+package com.lizijing.carrental.entity.bean;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 用户表
+ * 维修单表
  * </p>
  *
  * @author LiZijing
@@ -25,43 +25,35 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("tb_user")
-@ApiModel(value = "User对象", description = "用户表")
-public class User implements Serializable {
+@TableName("tb_repair")
+@ApiModel(value = "Repair对象", description = "维修单表")
+public class Repair implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("用户 ID")
+    @ApiModelProperty("维修单 ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("用户名")
-    @TableField("username")
-    private String username;
+    @ApiModelProperty("维修单 ID")
+    @TableField("order_id")
+    private Long orderId;
 
-    @ApiModelProperty("用户昵称")
-    @TableField("nickname")
-    private String nickname;
+    @ApiModelProperty("用户 ID")
+    @TableField("user_id")
+    private Long userId;
 
-    @ApiModelProperty("用户密码")
-    @TableField("`password`")
-    private String password;
+    @ApiModelProperty("车辆 ID")
+    @TableField("car_id")
+    private Long carId;
 
-    @ApiModelProperty("真实姓名")
-    @TableField("real_name")
-    private String realName;
+    @ApiModelProperty("操作员 ID")
+    @TableField("operator_id")
+    private Long operatorId;
 
-    @ApiModelProperty("性别")
-    @TableField("sex")
-    private String sex;
-
-    @ApiModelProperty("手机号码")
-    @TableField("phone_number")
-    private String phoneNumber;
-
-    @ApiModelProperty("邮箱")
-    @TableField("email")
-    private String email;
+    @ApiModelProperty("当前状态")
+    @TableField("`status`")
+    private String status;
 
     @ApiModelProperty("备注")
     @TableField("description")
@@ -79,10 +71,6 @@ public class User implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Boolean isDeleted;
-
-    @ApiModelProperty("禁用标记,0 代表未禁用,1 代表已禁用")
-    @TableField("is_disable")
-    private Boolean isDisable;
 
 
 }
