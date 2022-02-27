@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `car_rental`;
 CREATE DATABASE `car_rental` DEFAULT CHARACTER SET utf8mb4;
 USE `car_rental`;
 
@@ -5,7 +6,7 @@ DROP TABLE IF EXISTS `tb_car`;
 CREATE TABLE `tb_car`
 (
     id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '车辆 ID',
-    car_number  VARCHAR(255)        NOT NULL UNIQUE COMMENT '车牌号',
+    car_number  VARCHAR(255)        NOT NULL COMMENT '车牌号',
     brand       VARCHAR(255)        NOT NULL COMMENT '品牌',
     model       VARCHAR(255)        NOT NULL COMMENT '型号',
     type        VARCHAR(255)        NOT NULL COMMENT '车型',
@@ -20,9 +21,28 @@ CREATE TABLE `tb_car`
     is_deleted  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     is_usable   TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '可用标记,0 为可用,1 为不可用',
     PRIMARY KEY pk_car_id (id) USING BTREE COMMENT '车辆 ID 主键',
-    UNIQUE INDEX idx_car_num (car_number) USING BTREE COMMENT '车牌号索引'
+    UNIQUE INDEX idx_car_num (car_number) USING BTREE COMMENT '车牌号唯一索引'
 )
     COMMENT '车辆表'
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4;
+
+DROP TABLE IF EXISTS `tb_store`;
+CREATE TABLE `tb_store`
+(
+    id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '门店 ID',
+    store_name  VARCHAR(255)        NOT NULL COMMENT '门店名称',
+    address     VARCHAR(255)        NULL COMMENT '门店地址',
+    stock_limit INTEGER             NULL COMMENT '门店车辆存放上限',
+    manager_id  BIGINT(12) UNSIGNED NULL COMMENT '店长 ID',
+    description VARCHAR(255)        NULL COMMENT '备注',
+    create_time TIMESTAMP           NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    update_time TIMESTAMP           NULL COMMENT '更新时间',
+    is_deleted  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
+    is_disable  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '禁用标记,0 代表未禁用,1 代表已禁用',
+    PRIMARY KEY pk_user_id (id) USING BTREE COMMENT '门店 ID 主键'
+)
+    COMMENT '门店表'
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4;
 
@@ -30,7 +50,8 @@ DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user`
 (
     id           BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户 ID',
-    username     VARCHAR(255)        NOT NULL UNIQUE COMMENT '用户名',
+    username     VARCHAR(255)        NOT NULL COMMENT '用户名',
+    nickname     VARCHAR(255)        NOT NULL COMMENT '用户昵称',
     password     VARCHAR(255)        NOT NULL COMMENT '用户密码',
     real_name    VARCHAR(255)        NULL COMMENT '真实姓名',
     sex          VARCHAR(10)         NULL COMMENT '性别',
@@ -42,7 +63,10 @@ CREATE TABLE `tb_user`
     is_deleted   TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     is_disable   TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '禁用标记,0 代表未禁用,1 代表已禁用',
     PRIMARY KEY pk_user_id (id) USING BTREE COMMENT '用户 ID 主键',
-    UNIQUE INDEX idx_username (username) USING BTREE COMMENT '用户名索引'
+    UNIQUE INDEX idx_username (username) USING BTREE COMMENT '用户名唯一索引',
+    UNIQUE INDEX idx_nickname (nickname) USING BTREE COMMENT '用户昵称唯一索引',
+    UNIQUE INDEX idx_phone_number (phone_number) USING BTREE COMMENT '手机号码唯一索引',
+    UNIQUE INDEX idx_email (email) USING BTREE COMMENT '邮箱唯一索引'
 )
     COMMENT '用户表'
     ENGINE = InnoDB
