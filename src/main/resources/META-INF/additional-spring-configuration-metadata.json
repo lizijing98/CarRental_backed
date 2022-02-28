@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "swagger.enable",
+      "type": "java.lang.Boolean",
+      "description": "swagger 启动开关."
+    },
+    {
+      "name": "swagger.title",
+      "type": "java.lang.String",
+      "description": "swagger 文档标题."
+    },
+    {
+      "name": "swagger.description",
+      "type": "java.lang.String",
+      "description": "swagger 文档描述."
+    },
+    {
+      "name": "swagger.version",
+      "type": "java.lang.String",
+      "description": "swagger 文档版本."
+    }
+  ]
+}

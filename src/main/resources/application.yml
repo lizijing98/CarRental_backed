@@ -16,3 +16,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+swagger:
+  enable: true
+  title: 租车系统 API
+  description: 租车系统 API 文档
+  version: 0.0.1
