@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import com.lizijing.carrental.entity.vo.CarAddVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -93,4 +95,7 @@ public class Car implements Serializable {
     private Boolean isUsable;
 
 
+    public Car(CarAddVO carAddVO) {
+
+    }
 }
