@@ -8,6 +8,8 @@
         <result column="store_name" property="storeName" />
         <result column="address" property="address" />
         <result column="stock_limit" property="stockLimit" />
+        <result column="stock_now" property="stockNow" />
+        <result column="stock_last" property="stockLast" />
         <result column="manager_id" property="managerId" />
         <result column="description" property="description" />
         <result column="create_time" property="createTime" />

@@ -69,7 +69,7 @@ public class CodeGenerator {
                 // 包配置
                 .packageConfig(builder ->
                         builder.parent("com.lizijing.carrental")
-                                .entity("bean")
+                                .entity("entity.bean")
                                 .mapper("mapper")
                                 .service("service")
                                 .serviceImpl("service.impl")

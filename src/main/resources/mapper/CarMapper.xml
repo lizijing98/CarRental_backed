@@ -11,7 +11,7 @@
         <result column="type" property="type" />
         <result column="price" property="price" />
         <result column="deposit" property="deposit" />
-        <result column="address" property="address" />
+        <result column="store_name" property="storeName" />
         <result column="img" property="img" />
         <result column="status" property="status" />
         <result column="description" property="description" />
