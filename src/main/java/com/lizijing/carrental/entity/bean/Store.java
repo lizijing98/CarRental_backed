@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author LiZijing
- * @since 2022-02-27
+ * @since 2022-03-01
  */
 @Getter
 @Setter
@@ -46,6 +46,14 @@ public class Store implements Serializable {
     @ApiModelProperty("门店车辆存放上限")
     @TableField("stock_limit")
     private Integer stockLimit;
+
+    @ApiModelProperty("当前车辆存放数量")
+    @TableField("stock_now")
+    private Integer stockNow;
+
+    @ApiModelProperty("当前可用存放量")
+    @TableField("stock_last")
+    private Integer stockLast;
 
     @ApiModelProperty("店长 ID")
     @TableField("manager_id")
