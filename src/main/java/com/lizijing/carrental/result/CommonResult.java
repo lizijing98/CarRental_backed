@@ -55,4 +55,14 @@ public class CommonResult<T> {
     public static <T> CommonResult<T> success(String msg, T data) {
         return new CommonResult<>(ResultCode.SUCCESS, msg, data);
     }
+
+    /**
+     * 操作失败返回结果
+     *
+     * @param result 失败情况枚举
+     * @param data   结果数据
+     */
+    public static <T> CommonResult<T> failed(ResultCode result, T data) {
+        return new CommonResult<>(result, data);
+    }
 }

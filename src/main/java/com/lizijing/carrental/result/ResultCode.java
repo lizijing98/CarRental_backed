@@ -10,7 +10,8 @@ public enum ResultCode {
     // 通用枚举
     SUCCESS(200, "操作成功"),
     FAILED(500, "操作失败"),
-    SYS_ERROR(5000001, "未知错误，请联系嘎管理员");
+    SYS_ERROR(5000001, "未知错误，请联系管理员"),
+    DB_ERROR(5001001, "数据库异常");
 
     private final long code;
     private final String message;
