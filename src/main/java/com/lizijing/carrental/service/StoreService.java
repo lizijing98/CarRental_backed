@@ -1,7 +1,7 @@
 package com.lizijing.carrental.service;
 
-import com.lizijing.carrental.entity.bean.Store;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lizijing.carrental.entity.bean.Store;
 
 /**
  * <p>
@@ -12,5 +12,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-03-01
  */
 public interface StoreService extends IService<Store> {
+
+    /**
+     * 增加车辆库存
+     *
+     * @param storeName 门店名称
+     * @return 增加成功或失败
+     */
+    boolean addCarStock(String storeName);
 
 }

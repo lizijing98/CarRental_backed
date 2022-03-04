@@ -81,12 +81,12 @@ public class CarAddVO {
     private Double deposit;
 
     @ApiModelProperty(
-            name = "address",
-            value = "车辆所在地址",
+            name = "storeName",
+            value = "当前所在门店名称",
             example = "公司总仓库",
             position = 7
     )
-    private String address;
+    private String storeName;
 
     @ApiModelProperty(
             name = "img",
