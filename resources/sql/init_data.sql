@@ -1,7 +1,7 @@
 USE `car_rental`;
 
 TRUNCATE `tb_car`;
-INSERT INTO `tb_car` (car_number, brand, model, type, price, deposit, address, status, description)
+INSERT INTO `tb_car` (car_number, brand, model, type, price, deposit, store_name, status, description)
 VALUES ('苏AT0001', '大众', '帕萨特', '轿车', '180', '500', '车库', '正常', '测试 1 号车'),
        ('苏AT0002', '大众', '宝来', '轿车', '130', '400', '车库', '正常', '测试 2 号车'),
        ('苏AT0003', '大众', '途观', 'SUV', '180', '500', '车库', '正常', '测试 3 号车');
@@ -13,6 +13,10 @@ VALUES (1, 'superadmin', '超级管理员', '系统超级管理员，拥有所�
        (3, 'salesman', '业务员', '业务员，业务人员用，维护客户信息、车辆信息、审核订单信息'),
        (4, 'troubleshooter', '故障处理专员', '故障处理专员，负责处理事故单，维修单'),
        (5, 'user', '用户', '用户');
+
+TRUNCATE `tb_store`;
+INSERT INTO `tb_store`(store_name,store_limit)
+VALUES('公司总仓库',~0>>40);
 
 TRUNCATE `sys_permission`;
 INSERT INTO `sys_permission`(id, permission_name, permission_cn, description)
@@ -149,4 +153,3 @@ VALUES (1, 11),
        (5, 51),
        (5, 52);
 
-       
