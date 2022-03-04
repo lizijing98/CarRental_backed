@@ -15,8 +15,8 @@ VALUES (1, 'superadmin', '超级管理员', '系统超级管理员，拥有所�
        (5, 'user', '用户', '用户');
 
 TRUNCATE `tb_store`;
-INSERT INTO `tb_store`(store_name,store_limit)
-VALUES('公司总仓库',~0>>40);
+INSERT INTO `tb_store`(store_name, stock_limit)
+VALUES ('公司总仓库', ~0 >> 40);
 
 TRUNCATE `sys_permission`;
 INSERT INTO `sys_permission`(id, permission_name, permission_cn, description)
