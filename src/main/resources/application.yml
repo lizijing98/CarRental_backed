@@ -16,6 +16,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 swagger:
   enable: true
   title: 租车系统 API
