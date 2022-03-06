@@ -2,9 +2,9 @@ USE `car_rental`;
 
 TRUNCATE `tb_car`;
 INSERT INTO `tb_car` (car_number, brand, model, type, price, deposit, store_name, status, description)
-VALUES ('苏AT0001', '大众', '帕萨特', '轿车', '180', '500', '车库', '正常', '测试 1 号车'),
-       ('苏AT0002', '大众', '宝来', '轿车', '130', '400', '车库', '正常', '测试 2 号车'),
-       ('苏AT0003', '大众', '途观', 'SUV', '180', '500', '车库', '正常', '测试 3 号车');
+VALUES ('苏AT0001', '大众', '帕萨特', '轿车', '180', '500', '公司总仓库', '正常', '测试 1 号车'),
+       ('苏AT0002', '大众', '宝来', '轿车', '130', '400', '公司总仓库', '正常', '测试 2 号车'),
+       ('苏AT0003', '大众', '途观', 'SUV', '180', '500', '公司总仓库', '正常', '测试 3 号车');
 
 TRUNCATE `sys_role`;
 INSERT INTO `sys_role`(id, role_name, role_cn, description)
