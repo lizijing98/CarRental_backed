@@ -4,8 +4,10 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lizijing.carrental.entity.bean.Car;
 import com.lizijing.carrental.entity.vo.CarAddVO;
+import com.lizijing.carrental.exception.ImplException;
 import com.lizijing.carrental.mapper.CarMapper;
 import com.lizijing.carrental.result.CommonResult;
+import com.lizijing.carrental.result.ResultCode;
 import com.lizijing.carrental.service.CarService;
 import com.lizijing.carrental.service.StoreService;
 import org.springframework.stereotype.Service;
@@ -33,10 +35,10 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         Map<Object, Object> res = new HashMap<>(8);
         Car addCar = BeanUtil.copyProperties(carAddVO, Car.class);
         // 若入库的店铺不为空，则进行调仓
-        if (addCar.getStoreName() != null) {
-            storeService.addCarStock(addCar.getStoreName());
-            this.save(addCar);
+        if (addCar.getStoreName() != null && !storeService.addCarStock(addCar.getStoreName())) {
+            throw new ImplException(ResultCode.STORE_MORE_ERROR);
         }
+        this.save(addCar);
         res.put("carInfo", addCar);
         return CommonResult.success("add car success", res);
     }

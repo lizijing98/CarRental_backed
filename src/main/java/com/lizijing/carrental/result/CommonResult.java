@@ -34,6 +34,11 @@ public class CommonResult<T> {
         this.data = data;
     }
 
+    protected CommonResult(ResultCode resultCode) {
+        this.code = resultCode.getCode();
+        this.message = resultCode.getMessage();
+    }
+
     protected CommonResult(ResultCode resultCode, T data) {
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
@@ -60,9 +65,29 @@ public class CommonResult<T> {
      * 操作失败返回结果
      *
      * @param result 失败情况枚举
+     * @param msg    失败自定信息
+     * @param data   结果数据
+     */
+    public static <T> CommonResult<T> failed(ResultCode result, String msg, T data) {
+        return new CommonResult<>(result, msg, data);
+    }
+
+    /**
+     * 操作失败返回结果
+     *
+     * @param result 失败情况枚举
      * @param data   结果数据
      */
     public static <T> CommonResult<T> failed(ResultCode result, T data) {
         return new CommonResult<>(result, data);
+    }
+
+    /**
+     * 操作失败返回结果
+     *
+     * @param result 失败情况枚举
+     */
+    public static <T> CommonResult<T> failed(ResultCode result) {
+        return new CommonResult<>(result);
     }
 }

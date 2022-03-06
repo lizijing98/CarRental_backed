@@ -32,7 +32,7 @@ public class CarController {
     private CarService carService;
 
     @ApiOperation(value = "增加车辆信息")
-    @ApiImplicitParam(name = "carAddVO", value = "增加车辆接口参数", required = true)
+    @ApiImplicitParam(name = "carAddVO", value = "增加车辆接口参数", required = true, dataTypeClass = CarAddVO.class)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public CommonResult<Map<Object, Object>> addOne(@Validated @RequestBody CarAddVO carAddVO) {
         return carService.addOne(carAddVO);
