@@ -2,6 +2,8 @@ package com.lizijing.carrental.exception;
 
 import com.lizijing.carrental.result.ResultCode;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
@@ -11,21 +13,26 @@ import java.util.Objects;
  * @author LiZijing
  * @date 2022/3/6
  */
-@Data
+@Getter
+@Setter
 public class ImplException extends RuntimeException {
 
     public static final long serialVersionUID = 1L;
 
     private Long code;
 
+    private ResultCode resultCode;
+
     public ImplException(ResultCode resultCode) {
         super(resultCode.getMessage());
         setCode(resultCode.getCode());
+        setResultCode(resultCode);
     }
 
     public ImplException(ResultCode resultCode, String errorMsg) {
         super(errorMsg + "\n" + resultCode.getMessage());
         setCode(resultCode.getCode());
+        setResultCode(resultCode);
     }
 
     @Override

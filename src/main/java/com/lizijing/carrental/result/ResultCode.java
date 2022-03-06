@@ -20,7 +20,8 @@ public enum ResultCode {
     STORE_ZERO_ERROR(5002003, "库存已空"),
     // 车辆异常
     CAR_ERROR(5003001, "车辆操作异常"),
-    CAR_STATUS_ERROR(5003002, "车辆状态异常");
+    CAR_STATUS_ERROR(5003002, "车辆状态异常"),
+    CAR_EXIST_ERROR(5003003, "不存在的车辆信息");
 
 
     private final long code;

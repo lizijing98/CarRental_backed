@@ -32,6 +32,11 @@ public class RestExceptionHandler {
             // 数据库重复键异常
             log.error("DuplicateKey Error:", e);
             return CommonResult.failed(ResultCode.DB_Duplicate_ERROR, e.getCause().getMessage());
+        } else if (e instanceof ImplException) {
+            // 逻辑异常
+            ImplException implE = (ImplException) e;
+            log.error("Impl Error:", e);
+            return CommonResult.failed(implE.getResultCode());
         } else {
             // 其他异常
             log.error("Error:", e);
