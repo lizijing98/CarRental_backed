@@ -32,6 +32,6 @@ public interface CarService extends IService<Car> {
      * @param operatorId 操作者 ID
      * @return 结果
      */
-    CommonResult<Map<Object, Object>> delOne(Long carId, Long operatorId);
+    CommonResult<Map<Object, Object>> delOne(Integer carId, Integer operatorId);
 
 }

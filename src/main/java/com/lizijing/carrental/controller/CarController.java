@@ -6,6 +6,7 @@ import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.service.CarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +38,18 @@ public class CarController {
     }
 
     @ApiOperation(value = "删除车辆信息")
-    @RequestMapping(value = "/del/{carId}?operator={operatorId}", method = RequestMethod.DELETE)
-    public CommonResult<Map<Object, Object>> delOne(@PathVariable("carId") @NotNull(message = "车辆 ID 不能为空") Long carId,
-                                                    @PathVariable("operatorId") @NotNull(message = "操作者 ID 不能为空") Long operatorId) {
-        return null;
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "carId", value = "车辆 ID", required = true, dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "operatorId", value = "操作者 ID", required = true, dataTypeClass = Integer.class)
+    })
+    @RequestMapping(value = "/del", method = RequestMethod.DELETE)
+    public CommonResult<Map<Object, Object>> delOne(@RequestParam(value = "carId")
+                                                    @NotNull(message = "车辆 ID 不能为空")
+                                                            Integer carId,
+                                                    @RequestParam(value = "operatorId")
+                                                    @NotNull(message = "操作者 ID 不能为空")
+                                                            Integer operatorId) {
+        return carService.delOne(carId, operatorId);
     }
 }
 
