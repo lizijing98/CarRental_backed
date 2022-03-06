@@ -2,6 +2,7 @@ package com.lizijing.carrental.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lizijing.carrental.constant.StatusConstant;
 import com.lizijing.carrental.entity.bean.Car;
 import com.lizijing.carrental.entity.vo.CarAddVO;
 import com.lizijing.carrental.exception.ImplException;
@@ -41,5 +42,24 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         this.save(addCar);
         res.put("carInfo", addCar);
         return CommonResult.success("add car success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> delOne(Long carId, Long operatorId) {
+        Map<Object, Object> res = new HashMap<>(8);
+        // 验证操作者
+        //
+        // 验证车辆状态
+        Car delCar = this.getById(carId);
+        if (!delCar.getStatus().equals(StatusConstant.STATUS_NORMAL)) {
+            throw new ImplException(ResultCode.CAR_STATUS_ERROR);
+        }
+        // 库存操作
+        if (!storeService.reduceCarStock(delCar.getStoreName())) {
+            throw new ImplException(ResultCode.STORE_ZERO_ERROR);
+        }
+        // 逻辑删除
+        this.removeById(delCar);
+        return CommonResult.success("delete car success", res);
     }
 }

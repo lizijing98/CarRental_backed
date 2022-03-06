@@ -25,4 +25,13 @@ public interface CarService extends IService<Car> {
      */
     CommonResult<Map<Object, Object>> addOne(CarAddVO carAddVO);
 
+    /**
+     * 删除车辆接口
+     *
+     * @param carId      车辆 ID
+     * @param operatorId 操作者 ID
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> delOne(Long carId, Long operatorId);
+
 }

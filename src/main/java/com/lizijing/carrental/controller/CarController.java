@@ -8,12 +8,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 /**
@@ -36,6 +34,13 @@ public class CarController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public CommonResult<Map<Object, Object>> addOne(@Validated @RequestBody CarAddVO carAddVO) {
         return carService.addOne(carAddVO);
+    }
+
+    @ApiOperation(value = "删除车辆信息")
+    @RequestMapping(value = "/del/{carId}?operator={operatorId}", method = RequestMethod.DELETE)
+    public CommonResult<Map<Object, Object>> delOne(@PathVariable("carId") @NotNull(message = "车辆 ID 不能为空") Long carId,
+                                                    @PathVariable("operatorId") @NotNull(message = "操作者 ID 不能为空") Long operatorId) {
+        return null;
     }
 }
 

@@ -4,18 +4,24 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.bean.Store">
-        <id column="id" property="id" />
-        <result column="store_name" property="storeName" />
-        <result column="address" property="address" />
-        <result column="stock_limit" property="stockLimit" />
-        <result column="stock_now" property="stockNow" />
-        <result column="stock_last" property="stockLast" />
-        <result column="manager_id" property="managerId" />
-        <result column="description" property="description" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_deleted" property="isDeleted" />
-        <result column="is_disable" property="isDisable" />
+        <id column="id" property="id"/>
+        <result column="store_name" property="storeName"/>
+        <result column="address" property="address"/>
+        <result column="stock_limit" property="stockLimit"/>
+        <result column="stock_now" property="stockNow"/>
+        <result column="stock_last" property="stockLast"/>
+        <result column="manager_id" property="managerId"/>
+        <result column="description" property="description"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="is_disable" property="isDisable"/>
     </resultMap>
+    <select id="selectOneByStoreName" resultType="com.lizijing.carrental.entity.bean.Store">
+        SELECT *
+        FROM car_rental.tb_store s
+        WHERE s.store_name = #{storeName}
+          AND s.is_deleted = 0;
+    </select>
 
 </mapper>

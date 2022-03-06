@@ -21,4 +21,12 @@ public interface StoreService extends IService<Store> {
      */
     boolean addCarStock(String storeName);
 
+    /**
+     * 减少车辆库存
+     *
+     * @param storeName 门店名称
+     * @return 减少成功或失败
+     */
+    boolean reduceCarStock(String storeName);
+
 }

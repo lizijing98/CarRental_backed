@@ -15,9 +15,12 @@ public enum ResultCode {
     DB_ERROR(5001001, "数据库异常"),
     DB_Duplicate_ERROR(5001002, "存在已入库数据"),
     // 门店库存异常
-    STORE_MORE_ERROR(5002001, "库存已满"),
-    STORE_ZERO_ERROR(5002002, "库存已空"),
-    STORE_STATE_ERROR(5002003, "库存异常");
+    STORE_ERROR(5002001, "库存异常"),
+    STORE_MORE_ERROR(5002002, "库存已满"),
+    STORE_ZERO_ERROR(5002003, "库存已空"),
+    // 车辆异常
+    CAR_ERROR(5003001, "车辆操作异常"),
+    CAR_STATUS_ERROR(5003002, "车辆状态异常");
 
 
     private final long code;
