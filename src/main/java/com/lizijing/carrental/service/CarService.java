@@ -34,4 +34,13 @@ public interface CarService extends IService<Car> {
      */
     CommonResult<Map<Object, Object>> delOne(Integer carId, Integer operatorId);
 
+    /**
+     * 获取所有车辆接口
+     *
+     * @param pageSize  分页数
+     * @param pageIndex 页码
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> getAll(Integer pageSize, Integer pageIndex);
+
 }

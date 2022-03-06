@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Map;
 
 /**
@@ -50,6 +51,21 @@ public class CarController {
                                                     @NotNull(message = "操作者 ID 不能为空")
                                                             Integer operatorId) {
         return carService.delOne(carId, operatorId);
+    }
+
+    @ApiOperation(value = "获取所有车辆信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "pageSize", value = "分页数", example = "1", defaultValue = "1", dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "pageIndex", value = "页码", example = "10", defaultValue = "10", dataTypeClass = Integer.class)
+    })
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    public CommonResult<Map<Object, Object>> getAll(@RequestParam(value = "pageSize", defaultValue = "1")
+                                                    @Positive(message = "不合法的分页数")
+                                                            Integer pageSize,
+                                                    @RequestParam(value = "pageIndex", defaultValue = "10")
+                                                    @Positive(message = "不合法的页码")
+                                                            Integer pageIndex) {
+        return carService.getAll(pageSize, pageIndex);
     }
 }
 

@@ -1,6 +1,8 @@
 package com.lizijing.carrental.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lizijing.carrental.constant.StatusConstant;
 import com.lizijing.carrental.entity.bean.Car;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -30,6 +33,9 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
 
     @Resource
     private StoreService storeService;
+
+    @Resource
+    private CarMapper carMapper;
 
     @Override
     public CommonResult<Map<Object, Object>> addOne(CarAddVO carAddVO) {
@@ -66,5 +72,17 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         res.put("delCarId", delCar.getId());
         res.put("delCarNumber", delCar.getCarNumber());
         return CommonResult.success("delete car success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> getAll(Integer pageSize, Integer pageIndex) {
+        Map<Object, Object> res = new LinkedHashMap<>();
+        IPage<Car> carInfos = carMapper.selectPage(new Page<>(pageIndex, pageSize), null);
+        res.put("totalRecords", carInfos.getTotal());
+        res.put("dataList", carInfos.getRecords());
+        res.put("pageSize", carInfos.getSize());
+        res.put("pageNums", carInfos.getPages());
+        res.put("currentIndex", carInfos.getCurrent());
+        return CommonResult.success("get cars info success", res);
     }
 }
