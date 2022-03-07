@@ -15,4 +15,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CarMapper extends BaseMapper<Car> {
 
+    /**
+     * 根据车辆 ID 获取当前车辆所在门店位置
+     * @param id 车辆 ID
+     * @return 门店名称
+     */
+    String getStoreName(Long id);
 }

@@ -2,6 +2,7 @@ package com.lizijing.carrental.controller;
 
 
 import com.lizijing.carrental.entity.vo.CarAddVO;
+import com.lizijing.carrental.entity.vo.CarUpdateVO;
 import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.service.CarService;
 import io.swagger.annotations.Api;
@@ -66,6 +67,13 @@ public class CarController {
                                                     @Positive(message = "不合法的页码")
                                                             Integer pageIndex) {
         return carService.getAll(pageSize, pageIndex);
+    }
+
+    @ApiOperation(value = "修改车辆信息")
+    @ApiImplicitParam(name = "carUpdateVO", value = "修改车辆信息接口参数", required = true, dataTypeClass = CarUpdateVO.class)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public CommonResult<Map<Object, Object>> updateOne(@Validated @RequestBody CarUpdateVO carUpdateVO) {
+        return carService.updateOne(carUpdateVO);
     }
 }
 

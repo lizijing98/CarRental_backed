@@ -39,12 +39,19 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
     public boolean reduceCarStock(String storeName) {
         Store store = storeMapper.selectOneByStoreName(storeName);
         // 当前库存为 0 则返回 false
-        if (store.getStockNow() == 0) {
-            return false;
+        if (store.getStockNow() != 0) {
+            store.setStockNow(store.getStockNow() - 1);
+            store.setStockLast(store.getStockLimit() - store.getStockNow());
+            this.updateById(store);
+            return true;
         }
-        store.setStockNow(store.getStockNow() - 1);
-        store.setStockLast(store.getStockLimit() - store.getStockNow());
-        this.updateById(store);
-        return true;
+        return false;
+    }
+
+    @Override
+    public boolean removeCar(String oldStore, String newStore) {
+        // 减少原门店库存成功且新增新门店库存成功才成功，否则失败
+        // todo:需要考虑回滚
+        return reduceCarStock(oldStore) && addCarStock(newStore);
     }
 }

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lizijing.carrental.constant.StatusConstant;
 import com.lizijing.carrental.entity.bean.Car;
 import com.lizijing.carrental.entity.vo.CarAddVO;
+import com.lizijing.carrental.entity.vo.CarUpdateVO;
 import com.lizijing.carrental.exception.ImplException;
 import com.lizijing.carrental.mapper.CarMapper;
 import com.lizijing.carrental.result.CommonResult;
@@ -84,5 +85,19 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         res.put("pageNums", carInfos.getPages());
         res.put("currentIndex", carInfos.getCurrent());
         return CommonResult.success("get cars info success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> updateOne(CarUpdateVO carUpdateVO) {
+        Map<Object, Object> res = new HashMap<>(8);
+        Car updateCar = BeanUtil.copyProperties(carUpdateVO, Car.class);
+        String oldStoreName = carMapper.getStoreName(updateCar.getId());
+        // 检查是否更改车辆所在位置
+        if (updateCar.getStoreName() != null && !storeService.removeCar(oldStoreName, updateCar.getStoreName())) {
+            throw new ImplException(ResultCode.STORE_ERROR);
+        }
+        this.updateById(updateCar);
+        res.put("carInfo", updateCar);
+        return CommonResult.success("update car info success", res);
     }
 }

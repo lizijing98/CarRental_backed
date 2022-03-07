@@ -3,6 +3,7 @@ package com.lizijing.carrental.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lizijing.carrental.entity.bean.Car;
 import com.lizijing.carrental.entity.vo.CarAddVO;
+import com.lizijing.carrental.entity.vo.CarUpdateVO;
 import com.lizijing.carrental.result.CommonResult;
 
 import java.util.Map;
@@ -42,5 +43,13 @@ public interface CarService extends IService<Car> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> getAll(Integer pageSize, Integer pageIndex);
+
+    /**
+     * 修改车辆信息接口
+     *
+     * @param carUpdateVO 修改车辆信息接口参数
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> updateOne(CarUpdateVO carUpdateVO);
 
 }
