@@ -1,0 +1,26 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: CarRental
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/car_rental?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&character_set_server=utf8mb4&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+swagger:
+  enable: true
+  title: 租车系统 API
+  description: 租车系统 API 文档
+  version: 0.0.1
