@@ -1,12 +1,17 @@
 package com.lizijing.carrental.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lizijing.carrental.entity.bean.Store;
+import com.lizijing.carrental.entity.vo.StoreAddVO;
 import com.lizijing.carrental.mapper.StoreMapper;
+import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.service.StoreService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -53,5 +58,14 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
         // 减少原门店库存成功且新增新门店库存成功才成功，否则失败
         // todo:需要考虑回滚
         return reduceCarStock(oldStore) && addCarStock(newStore);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> addOne(StoreAddVO storeAddVO) {
+        Map<Object, Object> res = new HashMap<>(8);
+        Store addStore = BeanUtil.copyProperties(storeAddVO, Store.class);
+        this.save(addStore);
+        res.put("storeInfo", addStore);
+        return CommonResult.success("add store success", res);
     }
 }

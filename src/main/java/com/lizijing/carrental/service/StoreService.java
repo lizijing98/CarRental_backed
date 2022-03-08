@@ -2,6 +2,10 @@ package com.lizijing.carrental.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lizijing.carrental.entity.bean.Store;
+import com.lizijing.carrental.entity.vo.StoreAddVO;
+import com.lizijing.carrental.result.CommonResult;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -39,4 +43,11 @@ public interface StoreService extends IService<Store> {
      */
     boolean removeCar(String oldStore, String newStore);
 
+    /**
+     * 新增门店接口
+     *
+     * @param storeAddVO 新增门店接口参数
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> addOne(StoreAddVO storeAddVO);
 }
