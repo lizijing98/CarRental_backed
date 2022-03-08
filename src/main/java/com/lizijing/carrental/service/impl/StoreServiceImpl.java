@@ -4,8 +4,10 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lizijing.carrental.entity.bean.Store;
 import com.lizijing.carrental.entity.vo.StoreAddVO;
+import com.lizijing.carrental.exception.ImplException;
 import com.lizijing.carrental.mapper.StoreMapper;
 import com.lizijing.carrental.result.CommonResult;
+import com.lizijing.carrental.result.ResultCode;
 import com.lizijing.carrental.service.StoreService;
 import org.springframework.stereotype.Service;
 
@@ -67,5 +69,21 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
         this.save(addStore);
         res.put("storeInfo", addStore);
         return CommonResult.success("add store success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> delOne(Integer storeId, Integer operatorId) {
+        Map<Object, Object> res = new HashMap<>(8);
+        // todo:验证操作者
+        //
+        // 验证门店状态
+        Store delStore = this.getById(storeId);
+        if (delStore == null) {
+            throw new ImplException(ResultCode.STORE_EXIST_ERROR);
+        }
+        this.removeById(delStore);
+        res.put("delStoreId", delStore.getId());
+        res.put("delStoreName", delStore.getStoreName());
+        return CommonResult.success("delete store success", res);
     }
 }

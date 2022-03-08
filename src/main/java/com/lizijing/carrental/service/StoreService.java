@@ -50,4 +50,13 @@ public interface StoreService extends IService<Store> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> addOne(StoreAddVO storeAddVO);
+
+    /**
+     * 删除门店接口
+     *
+     * @param storeId    门店 ID
+     * @param operatorId 操作者 ID
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> delOne(Integer storeId, Integer operatorId);
 }

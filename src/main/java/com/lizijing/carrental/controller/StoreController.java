@@ -6,14 +6,14 @@ import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.service.StoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Map;
 
 /**
@@ -36,6 +36,23 @@ public class StoreController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public CommonResult<Map<Object, Object>> addOne(@Validated @RequestBody StoreAddVO storeAddVO) {
         return storeService.addOne(storeAddVO);
+    }
+
+    @ApiOperation(value = "删除门店信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "storeId", value = "门店 ID", required = true, dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "operatorId", value = "操作者 ID", required = true, dataTypeClass = Integer.class)
+    })
+    @RequestMapping(value = "/del", method = RequestMethod.DELETE)
+    public CommonResult<Map<Object, Object>> delOne(@RequestParam(value = "storeId")
+                                                    @NotNull(message = "门店 ID 不能为空")
+                                                    @Positive(message = "不合法的门店 ID")
+                                                            Integer storeId,
+                                                    @RequestParam(value = "operatorId")
+                                                    @NotNull(message = "操作者 ID 不能为空")
+                                                    @Positive(message = "不合法的操作者 ID")
+                                                            Integer operatorId) {
+        return storeService.delOne(storeId, operatorId);
     }
 
 }
