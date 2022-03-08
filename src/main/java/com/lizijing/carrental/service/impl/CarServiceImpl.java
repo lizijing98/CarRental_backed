@@ -1,6 +1,8 @@
 package com.lizijing.carrental.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -99,5 +102,19 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         this.updateById(updateCar);
         res.put("carInfo", updateCar);
         return CommonResult.success("update car info success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> select(Integer id, String carNumber, String model, String storeName, String type) {
+        Map<Object, Object> res = new LinkedHashMap<>();
+        LambdaQueryWrapper<Car> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(id != null, Car::getId, id)
+                .eq(StrUtil.isNotBlank(carNumber), Car::getCarNumber, carNumber)
+                .eq(StrUtil.isNotBlank(model), Car::getModel, model)
+                .eq(StrUtil.isNotBlank(storeName), Car::getStoreName, storeName)
+                .eq(StrUtil.isNotBlank(type), Car::getType, type);
+        List<Car> cars = carMapper.selectList(queryWrapper);
+        res.put("carInfos", cars);
+        return CommonResult.success("get infos success", res);
     }
 }

@@ -47,9 +47,11 @@ public class CarController {
     @RequestMapping(value = "/del", method = RequestMethod.DELETE)
     public CommonResult<Map<Object, Object>> delOne(@RequestParam(value = "carId")
                                                     @NotNull(message = "车辆 ID 不能为空")
+                                                    @Positive(message = "不合法的车辆 ID")
                                                             Integer carId,
                                                     @RequestParam(value = "operatorId")
                                                     @NotNull(message = "操作者 ID 不能为空")
+                                                    @Positive(message = "不合法的操作者 ID")
                                                             Integer operatorId) {
         return carService.delOne(carId, operatorId);
     }
@@ -67,6 +69,23 @@ public class CarController {
                                                     @Positive(message = "不合法的页码")
                                                             Integer pageIndex) {
         return carService.getAll(pageSize, pageIndex);
+    }
+
+    @ApiOperation(value = "筛选车辆信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "id", value = "车辆 ID", example = "1", allowEmptyValue = true, dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "carNumber", value = "车牌号", example = "苏A12345", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "model", value = "车牌号", example = "苏A12345", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "storeName", value = "车牌号", example = "苏A12345", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "carNumber", value = "车牌号", example = "苏A12345", allowEmptyValue = true, dataTypeClass = String.class)
+    })
+    @RequestMapping(value = "/select", method = RequestMethod.GET)
+    public CommonResult<Map<Object, Object>> select(@RequestParam(value = "id", required = false) @Positive(message = "不合法的车辆 ID") Integer id,
+                                                    @RequestParam(value = "carNumber", required = false) String carNumber,
+                                                    @RequestParam(value = "model", required = false) String model,
+                                                    @RequestParam(value = "storeName", required = false) String storeName,
+                                                    @RequestParam(value = "type", required = false) String type) {
+        return carService.select(id, carNumber, model, storeName, type);
     }
 
     @ApiOperation(value = "修改车辆信息")

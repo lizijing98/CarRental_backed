@@ -52,4 +52,15 @@ public interface CarService extends IService<Car> {
      */
     CommonResult<Map<Object, Object>> updateOne(CarUpdateVO carUpdateVO);
 
+    /**
+     * 筛选车辆信息接口
+     *
+     * @param id        车辆 ID
+     * @param carNumber 车牌号
+     * @param model     型号
+     * @param storeName 所在位置
+     * @param type      车型
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> select(Integer id, String carNumber, String model, String storeName, String type);
 }
