@@ -19,6 +19,7 @@ import com.lizijing.carrental.service.StoreService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -105,14 +106,16 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
     }
 
     @Override
-    public CommonResult<Map<Object, Object>> select(Integer id, String carNumber, String model, String storeName, String type) {
+    public CommonResult<Map<Object, Object>> select(Integer id, String carNumber, String model, String storeName, String type, LocalDateTime createTime, Boolean isUsable) {
         Map<Object, Object> res = new LinkedHashMap<>();
         LambdaQueryWrapper<Car> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(id != null, Car::getId, id)
                 .eq(StrUtil.isNotBlank(carNumber), Car::getCarNumber, carNumber)
                 .eq(StrUtil.isNotBlank(model), Car::getModel, model)
                 .eq(StrUtil.isNotBlank(storeName), Car::getStoreName, storeName)
-                .eq(StrUtil.isNotBlank(type), Car::getType, type);
+                .eq(StrUtil.isNotBlank(type), Car::getType, type)
+                .ge(StrUtil.isNotBlank(createTime.toString()), Car::getCreateTime, createTime)
+                .eq(isUsable != null, Car::getIsUsable, isUsable);
         List<Car> cars = carMapper.selectList(queryWrapper);
         res.put("carInfos", cars);
         return CommonResult.success("get infos success", res);

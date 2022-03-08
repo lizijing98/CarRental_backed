@@ -6,6 +6,7 @@ import com.lizijing.carrental.entity.vo.CarAddVO;
 import com.lizijing.carrental.entity.vo.CarUpdateVO;
 import com.lizijing.carrental.result.CommonResult;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -55,12 +56,14 @@ public interface CarService extends IService<Car> {
     /**
      * 筛选车辆信息接口
      *
-     * @param id        车辆 ID
-     * @param carNumber 车牌号
-     * @param model     型号
-     * @param storeName 所在位置
-     * @param type      车型
+     * @param id         车辆 ID
+     * @param carNumber  车牌号
+     * @param model      型号
+     * @param storeName  所在位置
+     * @param type       车型
+     * @param createTime 入库时间
+     * @param isUsable   是否可用
      * @return 结果
      */
-    CommonResult<Map<Object, Object>> select(Integer id, String carNumber, String model, String storeName, String type);
+    CommonResult<Map<Object, Object>> select(Integer id, String carNumber, String model, String storeName, String type, LocalDateTime createTime, Boolean isUsable);
 }
