@@ -59,4 +59,13 @@ public interface StoreService extends IService<Store> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> delOne(Integer storeId, Integer operatorId);
+
+    /**
+     * 获取所有门店接口
+     *
+     * @param pageSize  分页数
+     * @param pageIndex 页码
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> getAll(Integer pageSize, Integer pageIndex);
 }

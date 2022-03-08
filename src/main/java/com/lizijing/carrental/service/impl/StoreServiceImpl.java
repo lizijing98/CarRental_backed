@@ -1,6 +1,8 @@
 package com.lizijing.carrental.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lizijing.carrental.entity.bean.Store;
 import com.lizijing.carrental.entity.vo.StoreAddVO;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -85,5 +88,17 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
         res.put("delStoreId", delStore.getId());
         res.put("delStoreName", delStore.getStoreName());
         return CommonResult.success("delete store success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> getAll(Integer pageSize, Integer pageIndex) {
+        Map<Object, Object> res = new LinkedHashMap<>();
+        IPage<Store> carInfos = storeMapper.selectPage(new Page<>(pageIndex, pageSize), null);
+        res.put("totalRecords", carInfos.getTotal());
+        res.put("dataList", carInfos.getRecords());
+        res.put("pageSize", carInfos.getSize());
+        res.put("pageNums", carInfos.getPages());
+        res.put("currentIndex", carInfos.getCurrent());
+        return CommonResult.success("get stores info success", res);
     }
 }

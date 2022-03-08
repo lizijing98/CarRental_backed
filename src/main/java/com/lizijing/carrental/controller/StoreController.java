@@ -55,5 +55,20 @@ public class StoreController {
         return storeService.delOne(storeId, operatorId);
     }
 
+    @ApiOperation(value = "获取所有门店信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "pageSize", value = "分页数", example = "1", defaultValue = "1", dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "pageIndex", value = "页码", example = "10", defaultValue = "10", dataTypeClass = Integer.class)
+    })
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    public CommonResult<Map<Object, Object>> getAll(@RequestParam(value = "pageSize", defaultValue = "1")
+                                                    @Positive(message = "不合法的分页数")
+                                                            Integer pageSize,
+                                                    @RequestParam(value = "pageIndex", defaultValue = "10")
+                                                    @Positive(message = "不合法的页码")
+                                                            Integer pageIndex) {
+        return storeService.getAll(pageSize, pageIndex);
+    }
+
 }
 
