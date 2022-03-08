@@ -104,4 +104,12 @@ public class CarAddVO {
     )
     @NotNull(message = "操作员 ID 不能为空")
     private Long operatorId;
+
+    @ApiModelProperty(
+            name = "description",
+            value = "备注",
+            allowEmptyValue = true,
+            position = 10
+    )
+    private String description;
 }
