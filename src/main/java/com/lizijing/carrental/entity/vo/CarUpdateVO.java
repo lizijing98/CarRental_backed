@@ -101,6 +101,7 @@ public class CarUpdateVO {
             name = "operatorId",
             value = "操作员 ID",
             example = "1",
+            required = true,
             position = 10
     )
     @NotNull(message = "操作员 ID 不能为空")
@@ -113,4 +114,20 @@ public class CarUpdateVO {
             position = 10
     )
     private String description;
+
+    @ApiModelProperty(
+            name = "status",
+            value = "状态",
+            allowEmptyValue = true,
+            position = 11
+    )
+    private String status;
+
+    @ApiModelProperty(
+            name = "is_usable",
+            value = "是否可用",
+            allowEmptyValue = true,
+            position = 12
+    )
+    private Boolean isUsable;
 }
