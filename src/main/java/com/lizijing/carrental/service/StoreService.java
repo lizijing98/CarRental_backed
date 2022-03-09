@@ -68,4 +68,17 @@ public interface StoreService extends IService<Store> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> getAll(Integer pageSize, Integer pageIndex);
+
+    /**
+     * 筛选门店信息接口
+     *
+     * @param id        门店 ID
+     * @param storeName 门店名称
+     * @param address   门店地址
+     * @param stockLast 当前可用存放量
+     * @param managerId 店长 ID
+     * @param isDisable 是否禁用
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> select(Integer id, String storeName, String address, Integer stockLast, Integer managerId, Boolean isDisable);
 }

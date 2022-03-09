@@ -70,5 +70,23 @@ public class StoreController {
         return storeService.getAll(pageSize, pageIndex);
     }
 
+    @ApiOperation(value = "筛选门店信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "id", value = "门店 ID", example = "1", allowEmptyValue = true, dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "storeName", value = "门店名称", example = "测试门店", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "address", value = "门店地址", example = "江苏省南京市浦口区宁六路", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "stockLast", value = "当前可用存放量", example = "0", allowEmptyValue = true, dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "managerId", value = "店长 ID", example = "1", allowEmptyValue = true, dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "isDisable", value = "是否禁用", example = "false", allowEmptyValue = true, dataTypeClass = Boolean.class),
+    })
+    @RequestMapping(value = "/select", method = RequestMethod.GET)
+    public CommonResult<Map<Object, Object>> select(@RequestParam(value = "id", required = false) @Positive(message = "不合法的门店 ID") Integer id,
+                                                    @RequestParam(value = "storeName", required = false) String storeName,
+                                                    @RequestParam(value = "address", required = false) String address,
+                                                    @RequestParam(value = "stockLast", required = false) Integer stockLast,
+                                                    @RequestParam(value = "managerId", required = false) @Positive(message = "不合法的用户 ID") Integer managerId,
+                                                    @RequestParam(value = "isDisable", required = false) Boolean isDisable) {
+        return storeService.select(id, storeName, address, stockLast, managerId, isDisable);
+    }
 }
 

@@ -1,6 +1,8 @@
 package com.lizijing.carrental.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -100,5 +102,19 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
         res.put("pageNums", carInfos.getPages());
         res.put("currentIndex", carInfos.getCurrent());
         return CommonResult.success("get stores info success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> select(Integer id, String storeName, String address, Integer stockLast, Integer managerId, Boolean isDisable) {
+        Map<Object, Object> res = new LinkedHashMap<>();
+        LambdaQueryWrapper<Store> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(id != null, Store::getId, id)
+                .like(StrUtil.isNotBlank(storeName), Store::getStoreName, storeName)
+                .like(StrUtil.isNotBlank(address), Store::getAddress, address)
+                .ge(stockLast != null, Store::getStockLast, stockLast)
+                .eq(managerId != null, Store::getManagerId, managerId)
+                .eq(isDisable != null, Store::getIsDisable, isDisable);
+        res.put("storeInfos", storeMapper.selectList(queryWrapper));
+        return CommonResult.success("get infos success", res);
     }
 }
