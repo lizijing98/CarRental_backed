@@ -2,6 +2,7 @@ package com.lizijing.carrental.controller;
 
 
 import com.lizijing.carrental.entity.vo.StoreAddVO;
+import com.lizijing.carrental.entity.vo.StoreUpdateVO;
 import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.service.StoreService;
 import io.swagger.annotations.Api;
@@ -87,6 +88,10 @@ public class StoreController {
                                                     @RequestParam(value = "managerId", required = false) @Positive(message = "不合法的用户 ID") Integer managerId,
                                                     @RequestParam(value = "isDisable", required = false) Boolean isDisable) {
         return storeService.select(id, storeName, address, stockLast, managerId, isDisable);
+    }
+
+    public CommonResult<Map<Object, Object>> updateOne(@Validated @RequestBody StoreUpdateVO storeUpdateVO) {
+        return storeService.updateOne(storeUpdateVO);
     }
 }
 

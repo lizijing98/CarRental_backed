@@ -3,6 +3,7 @@ package com.lizijing.carrental.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lizijing.carrental.entity.bean.Store;
 import com.lizijing.carrental.entity.vo.StoreAddVO;
+import com.lizijing.carrental.entity.vo.StoreUpdateVO;
 import com.lizijing.carrental.result.CommonResult;
 
 import java.util.Map;
@@ -81,4 +82,12 @@ public interface StoreService extends IService<Store> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> select(Integer id, String storeName, String address, Integer stockLast, Integer managerId, Boolean isDisable);
+
+    /**
+     * 修改门店信息接口
+     *
+     * @param storeUpdateVO 修改门店信息接口参数
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> updateOne(StoreUpdateVO storeUpdateVO);
 }

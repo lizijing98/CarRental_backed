@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lizijing.carrental.entity.bean.Store;
 import com.lizijing.carrental.entity.vo.StoreAddVO;
+import com.lizijing.carrental.entity.vo.StoreUpdateVO;
 import com.lizijing.carrental.exception.ImplException;
 import com.lizijing.carrental.mapper.StoreMapper;
 import com.lizijing.carrental.result.CommonResult;
@@ -116,5 +117,14 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
                 .eq(isDisable != null, Store::getIsDisable, isDisable);
         res.put("storeInfos", storeMapper.selectList(queryWrapper));
         return CommonResult.success("get infos success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> updateOne(StoreUpdateVO storeUpdateVO) {
+        Map<Object, Object> res = new HashMap<>(8);
+        Store updateStore = BeanUtil.copyProperties(storeUpdateVO, Store.class);
+        this.updateById(updateStore);
+        res.put("storeInfo", updateStore);
+        return CommonResult.success("update store info success", res);
     }
 }
