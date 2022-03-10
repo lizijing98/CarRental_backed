@@ -85,7 +85,7 @@ public class CodeGenerator {
                 .strategyConfig(builder ->
                         builder.enableCapitalMode()
                                 .addInclude(scanner("表名，多个英文逗号分割").split(","))
-                                .addTablePrefix("tb_", "sys_")
+                                .addTablePrefix("tb_", "sys_", "vw_")
                                 // Bean 策略配置
                                 .entityBuilder()
                                 .enableChainModel()

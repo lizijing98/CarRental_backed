@@ -198,3 +198,12 @@ CREATE TABLE `sys_role_permission`
     COMMENT '角色_权限表'
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4;
+
+DROP VIEW IF EXISTS `vw_userinfo`;
+CREATE VIEW `vw_userinfo` AS
+SELECT tu.*,
+       sr.role_name,
+       sr.role_cn
+FROM `tb_user` tu
+         LEFT JOIN `sys_user_role` sur on tu.id = sur.user_id
+         LEFT JOIN `sys_role` sr on sur.role_id = sr.id;
