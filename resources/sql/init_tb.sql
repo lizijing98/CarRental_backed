@@ -38,7 +38,7 @@ CREATE TABLE `tb_store`
     stock_last  INTEGER UNSIGNED    NULL     DEFAULT (stock_limit - stock_now) COMMENT '当前可用存放量',
     manager_id  BIGINT(12) UNSIGNED NULL COMMENT '店长 ID',
     description VARCHAR(255)        NULL COMMENT '备注',
-    create_time TIMESTAMP           NULL DEFAULT NOW() COMMENT '创建时间',
+    create_time TIMESTAMP           NULL     DEFAULT NOW() COMMENT '创建时间',
     update_time TIMESTAMP           NULL COMMENT '更新时间',
     is_deleted  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     is_disable  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '禁用标记,0 代表未禁用,1 代表已禁用',
@@ -60,7 +60,7 @@ CREATE TABLE `tb_user`
     phone_number VARCHAR(255)        NULL COMMENT '手机号码',
     email        VARCHAR(255)        NULL COMMENT '邮箱',
     description  VARCHAR(255)        NULL COMMENT '备注',
-    create_time  TIMESTAMP           NULL DEFAULT NOW() COMMENT '创建时间',
+    create_time  TIMESTAMP           NULL     DEFAULT NOW() COMMENT '创建时间',
     update_time  TIMESTAMP           NULL COMMENT '更新时间',
     is_deleted   TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     is_disable   TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '禁用标记,0 代表未禁用,1 代表已禁用',
@@ -86,7 +86,7 @@ CREATE TABLE `tb_order`
     finish_time TIMESTAMP           NULL COMMENT '结束时间',
     total_price DOUBLE(10, 2)       NULL COMMENT '订单总价',
     description VARCHAR(255)        NULL COMMENT '备注',
-    create_time TIMESTAMP           NULL DEFAULT NOW() COMMENT '创建时间',
+    create_time TIMESTAMP           NULL     DEFAULT NOW() COMMENT '创建时间',
     update_time TIMESTAMP           NULL COMMENT '更新时间',
     is_deleted  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_order_id (id) USING BTREE COMMENT '订单 ID 主键'
@@ -105,7 +105,7 @@ CREATE TABLE `tb_repair`
     operator_id BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
     status      VARCHAR(255)        NULL COMMENT '当前状态',
     description VARCHAR(255)        NULL COMMENT '备注',
-    create_time TIMESTAMP           NULL DEFAULT NOW() COMMENT '创建时间',
+    create_time TIMESTAMP           NULL     DEFAULT NOW() COMMENT '创建时间',
     update_time TIMESTAMP           NULL COMMENT '更新时间',
     is_deleted  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_order_id (id) USING BTREE COMMENT '维修单 ID 主键'
@@ -124,7 +124,7 @@ CREATE TABLE `tb_accident`
     operator_id BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
     status      VARCHAR(255)        NULL COMMENT '当前状态',
     description VARCHAR(255)        NULL COMMENT '备注',
-    create_time TIMESTAMP           NULL DEFAULT NOW() COMMENT '创建时间',
+    create_time TIMESTAMP           NULL     DEFAULT NOW() COMMENT '创建时间',
     update_time TIMESTAMP           NULL COMMENT '更新时间',
     is_deleted  TINYINT(1)          NOT NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_order_id (id) USING BTREE COMMENT '事故单 ID 主键'
@@ -168,12 +168,12 @@ CREATE TABLE `sys_permission`
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`
 (
-    id          INTEGER   NOT NULL AUTO_INCREMENT COMMENT '用户_角色表 ID',
-    user_id     INTEGER   NOT NULL COMMENT '用户 ID',
-    role_id     INTEGER   NOT NULL COMMENT '角色 ID',
-    create_time TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    update_time TIMESTAMP NULL COMMENT '更新时间',
-    is_deleted  TINYINT   NOT NULL DEFAULT 0 COMMENT '0 代表未删除,1 代表已删除',
+    id          INTEGER             NOT NULL AUTO_INCREMENT COMMENT '用户_角色表 ID',
+    user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
+    role_id     INTEGER             NOT NULL COMMENT '角色 ID',
+    create_time TIMESTAMP           NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    update_time TIMESTAMP           NULL COMMENT '更新时间',
+    is_deleted  TINYINT             NOT NULL DEFAULT 0 COMMENT '0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_user_role_id (id) USING BTREE COMMENT '用户_角色表 ID 主键',
     UNIQUE INDEX uni_idx_user_id (user_id) USING BTREE COMMENT '用户_角色表 用户 ID 索引',
     INDEX idx_role_id (role_id) USING BTREE COMMENT '用户_角色表 角色 ID 索引'
