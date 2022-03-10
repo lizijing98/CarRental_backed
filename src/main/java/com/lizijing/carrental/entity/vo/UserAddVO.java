@@ -93,7 +93,7 @@ public class UserAddVO {
             name = "roleName",
             value = "角色名称",
             required = true,
-            example = "用户",
+            example = "USER",
             position = 9
     )
     private String roleName;

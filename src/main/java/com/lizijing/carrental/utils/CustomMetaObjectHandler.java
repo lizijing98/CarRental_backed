@@ -5,7 +5,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * <p> 自定数据填充策略 </p>
@@ -19,9 +18,9 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
-        this.strictInsertFill(metaObject, "isDeleted", Integer.class, 0);
-        this.strictInsertFill(metaObject, "isUsable", Integer.class, 0);
-        this.strictInsertFill(metaObject, "isDisable", Integer.class, 0);
+        this.strictInsertFill(metaObject, "isDeleted", Boolean.class, false);
+        this.strictInsertFill(metaObject, "isUsable", Boolean.class, false);
+        this.strictInsertFill(metaObject, "isDisable", Boolean.class, false);
     }
 
     @Override
