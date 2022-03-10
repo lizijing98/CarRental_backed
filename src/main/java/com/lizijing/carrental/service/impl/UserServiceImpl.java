@@ -7,8 +7,10 @@ import com.lizijing.carrental.entity.bean.User;
 import com.lizijing.carrental.entity.bean.UserRole;
 import com.lizijing.carrental.entity.enums.RoleEnum;
 import com.lizijing.carrental.entity.vo.UserAddVO;
+import com.lizijing.carrental.exception.ImplException;
 import com.lizijing.carrental.mapper.UserMapper;
 import com.lizijing.carrental.result.CommonResult;
+import com.lizijing.carrental.result.ResultCode;
 import com.lizijing.carrental.service.UserRoleService;
 import com.lizijing.carrental.service.UserService;
 import org.springframework.stereotype.Service;
@@ -48,5 +50,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         res.put("userInfo", addUser);
         res.put("userRole", addUserRole);
         return CommonResult.success("add user success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> delOne(Integer userId, Integer operatorId) {
+        Map<Object, Object> res = new HashMap<>(8);
+        // 验证操作者
+        //
+        // 验证车辆状态
+        User delUser = this.getById(userId);
+        if (delUser == null) {
+            throw new ImplException(ResultCode.USER_EXIST_ERROR);
+        }
+        // 逻辑删除
+        this.removeById(delUser);
+        res.put("delUserId", delUser.getId());
+        return CommonResult.success("delete user success", res);
     }
 }

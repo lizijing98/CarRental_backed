@@ -22,7 +22,11 @@ public enum ResultCode {
     // 车辆异常
     CAR_ERROR(5003001, "车辆操作异常"),
     CAR_STATUS_ERROR(5003002, "车辆状态异常"),
-    CAR_EXIST_ERROR(5003003, "不存在的车辆信息");
+    CAR_EXIST_ERROR(5003003, "不存在的车辆信息"),
+    // 人员异常
+    USER_ERROR(5004001, "用户操作异常"),
+    USER_STATUS_ERROR(5004002, "用户状态异常"),
+    USER_EXIST_ERROR(5004003, "不存在的用户信息");
 
 
     private final long code;

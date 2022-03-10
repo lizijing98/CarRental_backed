@@ -24,4 +24,13 @@ public interface UserService extends IService<User> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> addOne(UserAddVO userAddVO);
+
+    /**
+     * 删除用户接口
+     *
+     * @param userId     用户 ID
+     * @param operatorId 操作者 ID
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> delOne(Integer userId, Integer operatorId);
 }
