@@ -69,7 +69,7 @@ public class Repair implements Serializable {
 
     @ApiModelProperty("删除标记,0 代表未删除,1 代表已删除")
     @TableField("is_deleted")
-    @TableLogic
+    @TableLogic(value = "0", delval = "1")
     private Boolean isDeleted;
 
 

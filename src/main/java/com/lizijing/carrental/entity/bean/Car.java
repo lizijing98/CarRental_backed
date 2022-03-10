@@ -1,18 +1,14 @@
 package com.lizijing.carrental.entity.bean;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -84,12 +80,12 @@ public class Car implements Serializable {
     private LocalDateTime updateTime;
 
     @ApiModelProperty("删除标记,0 代表未删除,1 代表已删除")
-    @TableField("is_deleted")
-    @TableLogic
+    @TableField(value = "is_deleted", fill = FieldFill.INSERT)
+    @TableLogic(value = "0", delval = "1")
     private Boolean isDeleted;
 
     @ApiModelProperty("可用标记,0 为可用,1 为不可用")
-    @TableField("is_usable")
+    @TableField(value = "is_usable", fill = FieldFill.INSERT)
     private Boolean isUsable;
 
 
