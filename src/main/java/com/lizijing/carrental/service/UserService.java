@@ -33,4 +33,31 @@ public interface UserService extends IService<User> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> delOne(Integer userId, Integer operatorId);
+
+    /**
+     * 获取所有用户信息接口
+     *
+     * @param pageSize  分页数
+     * @param pageIndex 页码
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> getAllUser(Integer pageSize, Integer pageIndex);
+
+    /**
+     * 获取所有业务员信息接口
+     *
+     * @param pageSize  分页数
+     * @param pageIndex 页码
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> getAllSales(Integer pageSize, Integer pageIndex);
+
+    /**
+     * 获取所有故障处理专员信息接口
+     *
+     * @param pageSize  分页数
+     * @param pageIndex 页码
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> getAllShooter(Integer pageSize, Integer pageIndex);
 }

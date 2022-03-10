@@ -55,5 +55,50 @@ public class UserController {
         return userService.delOne(userId, operatorId);
     }
 
+    @ApiOperation(value = "获取所有用户信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "pageSize", value = "分页数", example = "1", defaultValue = "1", dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "pageIndex", value = "页码", example = "10", defaultValue = "10", dataTypeClass = Integer.class)
+    })
+    @RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
+    public CommonResult<Map<Object, Object>> getAllUser(@RequestParam(value = "pageSize", defaultValue = "1")
+                                                        @Positive(message = "不合法的分页数")
+                                                                Integer pageSize,
+                                                        @RequestParam(value = "pageIndex", defaultValue = "10")
+                                                        @Positive(message = "不合法的页码")
+                                                                Integer pageIndex) {
+        return userService.getAllUser(pageSize, pageIndex);
+    }
+
+    @ApiOperation(value = "获取所有业务员信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "pageSize", value = "分页数", example = "1", defaultValue = "1", dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "pageIndex", value = "页码", example = "10", defaultValue = "10", dataTypeClass = Integer.class)
+    })
+    @RequestMapping(value = "/getAllSales", method = RequestMethod.GET)
+    public CommonResult<Map<Object, Object>> getAllSales(@RequestParam(value = "pageSize", defaultValue = "1")
+                                                        @Positive(message = "不合法的分页数")
+                                                                Integer pageSize,
+                                                        @RequestParam(value = "pageIndex", defaultValue = "10")
+                                                        @Positive(message = "不合法的页码")
+                                                                Integer pageIndex) {
+        return userService.getAllSales(pageSize, pageIndex);
+    }
+
+    @ApiOperation(value = "获取所有故障处理专员信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "pageSize", value = "分页数", example = "1", defaultValue = "1", dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "pageIndex", value = "页码", example = "10", defaultValue = "10", dataTypeClass = Integer.class)
+    })
+    @RequestMapping(value = "/getAllShooter", method = RequestMethod.GET)
+    public CommonResult<Map<Object, Object>> getAllShooter(@RequestParam(value = "pageSize", defaultValue = "1")
+                                                           @Positive(message = "不合法的分页数")
+                                                                   Integer pageSize,
+                                                           @RequestParam(value = "pageIndex", defaultValue = "10")
+                                                           @Positive(message = "不合法的页码")
+                                                                   Integer pageIndex) {
+        return userService.getAllShooter(pageSize, pageIndex);
+    }
+
 }
 

@@ -2,13 +2,17 @@ package com.lizijing.carrental.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lizijing.carrental.entity.bean.User;
 import com.lizijing.carrental.entity.bean.UserRole;
+import com.lizijing.carrental.entity.bean.Userinfo;
 import com.lizijing.carrental.entity.enums.RoleEnum;
 import com.lizijing.carrental.entity.vo.UserAddVO;
 import com.lizijing.carrental.exception.ImplException;
 import com.lizijing.carrental.mapper.UserMapper;
+import com.lizijing.carrental.mapper.UserinfoMapper;
 import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.result.ResultCode;
 import com.lizijing.carrental.service.UserRoleService;
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -31,6 +36,8 @@ import java.util.Map;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Resource
     private UserRoleService userRoleService;
+    @Resource
+    private UserinfoMapper userinfoMapper;
 
     @Override
     public CommonResult<Map<Object, Object>> addOne(UserAddVO userAddVO) {
@@ -66,5 +73,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         this.removeById(delUser);
         res.put("delUserId", delUser.getId());
         return CommonResult.success("delete user success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> getAllUser(Integer pageSize, Integer pageIndex) {
+        return CommonResult.success("get user infos success", getInfos(pageSize, pageIndex, RoleEnum.USER.name().toLowerCase()));
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> getAllSales(Integer pageSize, Integer pageIndex) {
+        return CommonResult.success("get salesman infos success", getInfos(pageSize, pageIndex, RoleEnum.SALESMAN.name().toLowerCase()));
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> getAllShooter(Integer pageSize, Integer pageIndex) {
+        return CommonResult.success("get troubleshooter info success", getInfos(pageSize, pageIndex, RoleEnum.TROUBLESHOOTER.name().toLowerCase()));
+    }
+
+    private Map<Object, Object> getInfos(Integer pageSize, Integer pageIndex, String roleName) {
+        Map<Object, Object> res = new LinkedHashMap<>();
+        LambdaQueryWrapper<Userinfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Userinfo::getRoleName, roleName);
+        IPage<Userinfo> infos = userinfoMapper.selectPage(new Page<>(pageIndex, pageSize), queryWrapper);
+        res.put("totalRecords", infos.getTotal());
+        res.put("dataList", infos.getRecords());
+        res.put("pageSize", infos.getSize());
+        res.put("pageNums", infos.getPages());
+        res.put("currentIndex", infos.getCurrent());
+        return res;
     }
 }
