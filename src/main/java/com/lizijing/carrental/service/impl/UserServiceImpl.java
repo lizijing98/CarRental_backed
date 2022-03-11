@@ -11,6 +11,8 @@ import com.lizijing.carrental.entity.bean.UserRole;
 import com.lizijing.carrental.entity.bean.Userinfo;
 import com.lizijing.carrental.entity.enums.RoleEnum;
 import com.lizijing.carrental.entity.vo.UserAddVO;
+import com.lizijing.carrental.entity.vo.UserEnhanceVO;
+import com.lizijing.carrental.entity.vo.UserUpdateVO;
 import com.lizijing.carrental.exception.ImplException;
 import com.lizijing.carrental.mapper.UserMapper;
 import com.lizijing.carrental.mapper.UserinfoMapper;
@@ -106,6 +108,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         List<Userinfo> users = userinfoMapper.selectList(queryWrapper);
         res.put("userInfos", users);
         return CommonResult.success("get infos success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> updateOne(UserUpdateVO userUpdateVO) {
+        Map<Object, Object> res = new HashMap<>(8);
+        User updateUser = BeanUtil.copyProperties(userUpdateVO, User.class);
+        this.updateById(updateUser);
+        res.put("userInfo", updateUser);
+        return CommonResult.success("update user info success", res);
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> enhance(UserEnhanceVO userEnhanceVO) {
+        Map<Object, Object> res = new HashMap<>(8);
+        UserRole updateRole = new UserRole().setUserId(userEnhanceVO.getUserId())
+                .setRoleId(RoleEnum.valueOf(userEnhanceVO.getRoleName()).ordinal() + 1);
+        userRoleService.update(updateRole, new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userEnhanceVO.getUserId()));
+        res.put("userInfo", userinfoMapper.selectById(userEnhanceVO.getUserId()));
+        return CommonResult.success("user's role update success", res);
     }
 
     private Map<Object, Object> getInfos(Integer pageSize, Integer pageIndex, String roleName) {

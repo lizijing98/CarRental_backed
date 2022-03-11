@@ -2,7 +2,10 @@ package com.lizijing.carrental.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lizijing.carrental.entity.bean.User;
+import com.lizijing.carrental.entity.vo.CarUpdateVO;
 import com.lizijing.carrental.entity.vo.UserAddVO;
+import com.lizijing.carrental.entity.vo.UserEnhanceVO;
+import com.lizijing.carrental.entity.vo.UserUpdateVO;
 import com.lizijing.carrental.result.CommonResult;
 
 import java.util.Map;
@@ -74,4 +77,18 @@ public interface UserService extends IService<User> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> select(Integer id, String username, String nickname, String realName, String phoneNumber, String email, String roleName);
+
+    /**
+     * 修改用户信息接口
+     * @param userUpdateVO 修改用户信息接口参数
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> updateOne(UserUpdateVO userUpdateVO);
+
+    /**
+     * 修改用户角色接口
+     * @param userEnhanceVO 修改用户角色接口
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> enhance(UserEnhanceVO userEnhanceVO);
 }

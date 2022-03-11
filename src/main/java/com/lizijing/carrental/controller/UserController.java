@@ -1,7 +1,10 @@
 package com.lizijing.carrental.controller;
 
 
+import com.lizijing.carrental.entity.vo.CarUpdateVO;
 import com.lizijing.carrental.entity.vo.UserAddVO;
+import com.lizijing.carrental.entity.vo.UserEnhanceVO;
+import com.lizijing.carrental.entity.vo.UserUpdateVO;
 import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.service.UserService;
 import io.swagger.annotations.Api;
@@ -119,6 +122,20 @@ public class UserController {
                                                     @RequestParam(value = "email", required = false) String email,
                                                     @RequestParam(value = "roleName") String roleName) {
         return userService.select(id, username, nickname, realName, phoneNumber, email, roleName);
+    }
+
+    @ApiOperation(value = "修改用户信息")
+    @ApiImplicitParam(name = "userUpdateVO", value = "修改用户信息接口参数", required = true, dataTypeClass = CarUpdateVO.class)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public CommonResult<Map<Object, Object>> updateOne(@Validated @RequestBody UserUpdateVO userUpdateVO) {
+        return userService.updateOne(userUpdateVO);
+    }
+
+    @ApiOperation(value = "修改用户角色")
+    @ApiImplicitParam(name = "userEnhanceVO", value = "修改用户角色接口参数", required = true, dataTypeClass =UserEnhanceVO.class)
+    @RequestMapping(value = "/enhance", method = RequestMethod.PUT)
+    public CommonResult<Map<Object, Object>> enhance(@Validated @RequestBody UserEnhanceVO userEnhanceVO) {
+        return userService.enhance(userEnhanceVO);
     }
 }
 
