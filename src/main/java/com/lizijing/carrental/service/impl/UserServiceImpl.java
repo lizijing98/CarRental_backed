@@ -1,6 +1,7 @@
 package com.lizijing.carrental.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -88,6 +90,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public CommonResult<Map<Object, Object>> getAllShooter(Integer pageSize, Integer pageIndex) {
         return CommonResult.success("get troubleshooter info success", getInfos(pageSize, pageIndex, RoleEnum.TROUBLESHOOTER.name().toLowerCase()));
+    }
+
+    @Override
+    public CommonResult<Map<Object, Object>> select(Integer id, String username, String nickname, String realName, String phoneNumber, String email, String roleName) {
+        Map<Object, Object> res = new LinkedHashMap<>();
+        LambdaQueryWrapper<Userinfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(id != null, Userinfo::getId, id)
+                .like(StrUtil.isNotBlank(username), Userinfo::getUsername, username)
+                .like(StrUtil.isNotBlank(nickname), Userinfo::getNickname, nickname)
+                .eq(StrUtil.isNotBlank(realName), Userinfo::getRealName, realName)
+                .eq(StrUtil.isNotBlank(phoneNumber), Userinfo::getPhoneNumber, phoneNumber)
+                .eq(StrUtil.isNotBlank(email), Userinfo::getEmail, email)
+                .eq(StrUtil.isNotBlank(roleName), Userinfo::getRoleName, roleName);
+        List<Userinfo> users = userinfoMapper.selectList(queryWrapper);
+        res.put("userInfos", users);
+        return CommonResult.success("get infos success", res);
     }
 
     private Map<Object, Object> getInfos(Integer pageSize, Integer pageIndex, String roleName) {

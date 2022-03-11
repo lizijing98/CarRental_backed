@@ -60,4 +60,18 @@ public interface UserService extends IService<User> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> getAllShooter(Integer pageSize, Integer pageIndex);
+
+    /**
+     * 删选用户信息接口
+     *
+     * @param id          用户 ID
+     * @param username    用户名
+     * @param nickname    用户昵称
+     * @param realName    真实姓名
+     * @param phoneNumber 手机号码
+     * @param email       邮箱
+     * @param roleName    角色名
+     * @return 结果
+     */
+    CommonResult<Map<Object, Object>> select(Integer id, String username, String nickname, String realName, String phoneNumber, String email, String roleName);
 }

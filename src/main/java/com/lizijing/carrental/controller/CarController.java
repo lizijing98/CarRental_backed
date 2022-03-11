@@ -89,8 +89,8 @@ public class CarController {
                                                     @RequestParam(value = "model", required = false) String model,
                                                     @RequestParam(value = "storeName", required = false) String storeName,
                                                     @RequestParam(value = "type", required = false) String type,
-                                                    @RequestParam(value = "type", required = false) LocalDateTime createTime,
-                                                    @RequestParam(value = "type", required = false) Boolean isUsable) {
+                                                    @RequestParam(value = "createTime", required = false) LocalDateTime createTime,
+                                                    @RequestParam(value = "isUsable", required = false) Boolean isUsable) {
         return carService.select(id, carNumber, model, storeName, type, createTime, isUsable);
     }
 

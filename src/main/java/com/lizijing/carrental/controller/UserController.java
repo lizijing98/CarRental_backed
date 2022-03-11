@@ -77,11 +77,11 @@ public class UserController {
     })
     @RequestMapping(value = "/getAllSales", method = RequestMethod.GET)
     public CommonResult<Map<Object, Object>> getAllSales(@RequestParam(value = "pageSize", defaultValue = "1")
-                                                        @Positive(message = "不合法的分页数")
-                                                                Integer pageSize,
-                                                        @RequestParam(value = "pageIndex", defaultValue = "10")
-                                                        @Positive(message = "不合法的页码")
-                                                                Integer pageIndex) {
+                                                         @Positive(message = "不合法的分页数")
+                                                                 Integer pageSize,
+                                                         @RequestParam(value = "pageIndex", defaultValue = "10")
+                                                         @Positive(message = "不合法的页码")
+                                                                 Integer pageIndex) {
         return userService.getAllSales(pageSize, pageIndex);
     }
 
@@ -100,5 +100,25 @@ public class UserController {
         return userService.getAllShooter(pageSize, pageIndex);
     }
 
+    @ApiOperation(value = "筛选用户信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "id", value = "用户 ID", example = "1", allowEmptyValue = true, dataTypeClass = Integer.class),
+            @ApiImplicitParam(paramType = "query", name = "username", value = "用户名", example = "test-user", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "nickname", value = "用户昵称", example = "测试用户", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "realName", value = "真实姓名", example = "测试用户", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "phoneNumber", value = "手机号码", example = "17612341111", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "email", value = "邮箱", example = "test1@test.com", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "roleName", value = "用户角色", example = "USER", allowEmptyValue = true, dataTypeClass = String.class)
+    })
+    @RequestMapping(value = "/select", method = RequestMethod.GET)
+    public CommonResult<Map<Object, Object>> select(@RequestParam(value = "id", required = false) @Positive(message = "不合法的用户 ID") Integer id,
+                                                    @RequestParam(value = "username", required = false) String username,
+                                                    @RequestParam(value = "nickname", required = false) String nickname,
+                                                    @RequestParam(value = "realName", required = false) String realName,
+                                                    @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+                                                    @RequestParam(value = "email", required = false) String email,
+                                                    @RequestParam(value = "roleName") String roleName) {
+        return userService.select(id, username, nickname, realName, phoneNumber, email, roleName);
+    }
 }
 
