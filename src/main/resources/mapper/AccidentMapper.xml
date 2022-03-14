@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.bean.Accident">
         <id column="id" property="id" />
-        <result column="order_id" property="orderId" />
+        <result column="accident_num" property="accidentNum" />
         <result column="user_id" property="userId" />
         <result column="car_id" property="carId" />
         <result column="operator_id" property="operatorId" />

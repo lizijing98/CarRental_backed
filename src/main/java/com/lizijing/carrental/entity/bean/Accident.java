@@ -35,9 +35,9 @@ public class Accident implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("事故单 ID")
-    @TableField("order_id")
-    private Long orderId;
+    @ApiModelProperty("维修单编号")
+    @TableField("accident_num")
+    private String accidentNum;
 
     @ApiModelProperty("用户 ID")
     @TableField("user_id")

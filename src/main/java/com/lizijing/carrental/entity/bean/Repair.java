@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author LiZijing
- * @since 2022-02-27
+ * @since 2022-03-14
  */
 @Getter
 @Setter
@@ -35,9 +35,9 @@ public class Repair implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("维修单 ID")
-    @TableField("order_id")
-    private Long orderId;
+    @ApiModelProperty("维修单单编号")
+    @TableField("repair_num")
+    private String repairNum;
 
     @ApiModelProperty("用户 ID")
     @TableField("user_id")
@@ -69,7 +69,7 @@ public class Repair implements Serializable {
 
     @ApiModelProperty("删除标记,0 代表未删除,1 代表已删除")
     @TableField("is_deleted")
-    @TableLogic(value = "0", delval = "1")
+    @TableLogic
     private Boolean isDeleted;
 
 
