@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `tb_order`;
 CREATE TABLE `tb_order`
 (
     id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单 ID',
-    order_num   VARCHAR(255)        NOT NULL UNIQUE COMMENT '订单编号',
+    order_num   VARCHAR(17)        NOT NULL UNIQUE COMMENT '订单编号',
     user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
     car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
     operator_id BIGINT(12) UNSIGNED NULL COMMENT '操作员 ID',
@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `tb_repair`;
 CREATE TABLE `tb_repair`
 (
     id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '维修单 ID',
-    repair_num  VARCHAR(255)        NOT NULL UNIQUE COMMENT '维修单单编号',
+    repair_num  VARCHAR(17)        NOT NULL UNIQUE COMMENT '维修单编号',
     user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
     car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
     operator_id BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
@@ -118,7 +118,7 @@ DROP TABLE IF EXISTS `tb_accident`;
 CREATE TABLE `tb_accident`
 (
     id           BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '事故单 ID',
-    accident_num VARCHAR(255)        NOT NULL UNIQUE COMMENT '维修单编号',
+    accident_num VARCHAR(17)        NOT NULL UNIQUE COMMENT '事故单编号',
     user_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
     car_id       BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
     operator_id  BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
@@ -207,3 +207,99 @@ SELECT tu.*,
 FROM `tb_user` tu
          LEFT JOIN `sys_user_role` sur on tu.id = sur.user_id
          LEFT JOIN `sys_role` sr on sur.role_id = sr.id;
+
+DROP TRIGGER IF EXISTS `generateOrderNum`;
+CREATE TRIGGER `generateOrderNum`
+    BEFORE INSERT
+    ON `tb_order`
+    FOR EACH ROW
+BEGIN
+    DECLARE currentDate VARCHAR(8);
+    DECLARE lastNum BIGINT UNSIGNED DEFAULT 0;
+    DECLARE ORD_NUM VARCHAR(17);
+    SELECT DATE_FORMAT(NOW(), '%Y%m%d') INTO currentDate;
+
+    /*查找当日最后一个订单编号*/
+    SELECT IFNULL(`order_num`, 'notnull')
+    INTO ORD_NUM
+    FROM `tb_order`
+    WHERE SUBSTRING(`order_num`, 1, 3) = 'ORD'
+      AND SUBSTRING(`order_num`, 4, 8) = currentDate
+    ORDER BY id DESC
+    LIMIT 1;
+
+    IF ORD_NUM != '' THEN
+        SET lastNum = CONVERT(SUBSTRING(order_num, -6), DECIMAL);
+        SELECT CONCAT('ORD', currentDate, LPAD((lastNum + 1), 6, '0'))
+        INTO ORD_NUM;
+    ELSE
+        SELECT CONCAT('ORD', currentDate, LPAD((lastNum + 1), 6, '0'))
+        INTO ORD_NUM;
+    END IF;
+
+    SET NEW.`order_num`=ORD_NUM;
+END;
+
+DROP TRIGGER IF EXISTS `generateRepairNum`;
+CREATE TRIGGER `generateRepairNum`
+    BEFORE INSERT
+    ON `tb_repair`
+    FOR EACH ROW
+BEGIN
+    DECLARE currentDate VARCHAR(8);
+    DECLARE lastNum BIGINT UNSIGNED DEFAULT 0;
+    DECLARE REP_NUM VARCHAR(17);
+    SELECT DATE_FORMAT(NOW(), '%Y%m%d') INTO currentDate;
+
+    /*查找当日最后一个维修单编号*/
+    SELECT IFNULL(`repair_num`, 'notnull')
+    INTO REP_NUM
+    FROM `tb_order`
+    WHERE SUBSTRING(`repair_num`, 1, 3) = 'REP'
+      AND SUBSTRING(`repair_num`, 4, 8) = currentDate
+    ORDER BY id DESC
+    LIMIT 1;
+
+    IF REP_NUM != '' THEN
+        SET lastNum = CONVERT(SUBSTRING(repair_num, -6), DECIMAL);
+        SELECT CONCAT('REP', currentDate, LPAD((lastNum + 1), 6, '0'))
+        INTO REP_NUM;
+    ELSE
+        SELECT CONCAT('REP', currentDate, LPAD((lastNum + 1), 6, '0'))
+        INTO REP_NUM;
+    END IF;
+
+    SET NEW.`repair_num`=REP_NUM;
+END;
+
+DROP TRIGGER IF EXISTS `generateAccidentNum`;
+CREATE TRIGGER `generateAccidentNum`
+    BEFORE INSERT
+    ON `tb_accident`
+    FOR EACH ROW
+BEGIN
+    DECLARE currentDate VARCHAR(8);
+    DECLARE lastNum BIGINT UNSIGNED DEFAULT 0;
+    DECLARE ACCIDENT_NUM VARCHAR(17);
+    SELECT DATE_FORMAT(NOW(), '%Y%m%d') INTO currentDate;
+
+    /*查找当日最后一个维修单编号*/
+    SELECT IFNULL(`accident_num`, 'notnull')
+    INTO ACCIDENT_NUM
+    FROM `tb_order`
+    WHERE SUBSTRING(`accident_num`, 1, 3) = 'ACC'
+      AND SUBSTRING(`accident_num`, 4, 8) = currentDate
+    ORDER BY id DESC
+    LIMIT 1;
+
+    IF ACCIDENT_NUM != '' THEN
+        SET lastNum = CONVERT(SUBSTRING(accident_num, -6), DECIMAL);
+        SELECT CONCAT('ACC', currentDate, LPAD((lastNum + 1), 6, '0'))
+        INTO ACCIDENT_NUM;
+    ELSE
+        SELECT CONCAT('ACC', currentDate, LPAD((lastNum + 1), 6, '0'))
+        INTO ACCIDENT_NUM;
+    END IF;
+
+    SET NEW.`accident_num`=ACCIDENT_NUM;
+END;
