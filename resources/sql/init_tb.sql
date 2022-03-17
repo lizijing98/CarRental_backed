@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `tb_order`;
 CREATE TABLE `tb_order`
 (
     id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单 ID',
-    order_num   VARCHAR(17)        NOT NULL UNIQUE COMMENT '订单编号',
+    order_num   VARCHAR(17)         NOT NULL UNIQUE COMMENT '订单编号',
     user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
     car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
     operator_id BIGINT(12) UNSIGNED NULL COMMENT '操作员 ID',
@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `tb_repair`;
 CREATE TABLE `tb_repair`
 (
     id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '维修单 ID',
-    repair_num  VARCHAR(17)        NOT NULL UNIQUE COMMENT '维修单编号',
+    repair_num  VARCHAR(17)         NOT NULL UNIQUE COMMENT '维修单编号',
     user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
     car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
     operator_id BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
@@ -118,7 +118,7 @@ DROP TABLE IF EXISTS `tb_accident`;
 CREATE TABLE `tb_accident`
 (
     id           BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '事故单 ID',
-    accident_num VARCHAR(17)        NOT NULL UNIQUE COMMENT '事故单编号',
+    accident_num VARCHAR(17)         NOT NULL UNIQUE COMMENT '事故单编号',
     user_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
     car_id       BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
     operator_id  BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
@@ -237,7 +237,7 @@ BEGIN
         INTO ORD_NUM;
     END IF;
 
-    SET NEW.`order_num`=ORD_NUM;
+    SET NEW.`order_num` = ORD_NUM;
 END;
 
 DROP TRIGGER IF EXISTS `generateRepairNum`;
@@ -254,7 +254,7 @@ BEGIN
     /*查找当日最后一个维修单编号*/
     SELECT IFNULL(`repair_num`, 'notnull')
     INTO REP_NUM
-    FROM `tb_order`
+    FROM `tb_repair`
     WHERE SUBSTRING(`repair_num`, 1, 3) = 'REP'
       AND SUBSTRING(`repair_num`, 4, 8) = currentDate
     ORDER BY id DESC
@@ -269,7 +269,7 @@ BEGIN
         INTO REP_NUM;
     END IF;
 
-    SET NEW.`repair_num`=REP_NUM;
+    SET NEW.`repair_num` = REP_NUM;
 END;
 
 DROP TRIGGER IF EXISTS `generateAccidentNum`;
@@ -286,7 +286,7 @@ BEGIN
     /*查找当日最后一个维修单编号*/
     SELECT IFNULL(`accident_num`, 'notnull')
     INTO ACCIDENT_NUM
-    FROM `tb_order`
+    FROM `tb_accident`
     WHERE SUBSTRING(`accident_num`, 1, 3) = 'ACC'
       AND SUBSTRING(`accident_num`, 4, 8) = currentDate
     ORDER BY id DESC
@@ -301,5 +301,5 @@ BEGIN
         INTO ACCIDENT_NUM;
     END IF;
 
-    SET NEW.`accident_num`=ACCIDENT_NUM;
+    SET NEW.`accident_num` = ACCIDENT_NUM;
 END;

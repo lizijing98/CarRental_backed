@@ -30,7 +30,6 @@ public class Userinfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("用户 ID")
-    @TableField("id")
     private Long id;
 
     @ApiModelProperty("用户名")

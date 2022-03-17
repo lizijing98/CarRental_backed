@@ -90,6 +90,9 @@ public class StoreController {
         return storeService.select(id, storeName, address, stockLast, managerId, isDisable);
     }
 
+    @ApiOperation(value = "修改门店信息")
+    @ApiImplicitParam(name = "storeUpdateVO", value = "修改门店信息接口参数", required = true, dataTypeClass = StoreUpdateVO.class)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public CommonResult<Map<Object, Object>> updateOne(@Validated @RequestBody StoreUpdateVO storeUpdateVO) {
         return storeService.updateOne(storeUpdateVO);
     }
