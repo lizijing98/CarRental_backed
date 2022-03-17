@@ -229,7 +229,7 @@ BEGIN
     LIMIT 1;
 
     IF ORD_NUM != '' THEN
-        SET lastNum = CONVERT(SUBSTRING(order_num, -6), DECIMAL);
+        SET lastNum = CONVERT(SUBSTRING(ORD_NUM, -6), DECIMAL);
         SELECT CONCAT('ORD', currentDate, LPAD((lastNum + 1), 6, '0'))
         INTO ORD_NUM;
     ELSE
@@ -261,7 +261,7 @@ BEGIN
     LIMIT 1;
 
     IF REP_NUM != '' THEN
-        SET lastNum = CONVERT(SUBSTRING(repair_num, -6), DECIMAL);
+        SET lastNum = CONVERT(SUBSTRING(REP_NUM, -6), DECIMAL);
         SELECT CONCAT('REP', currentDate, LPAD((lastNum + 1), 6, '0'))
         INTO REP_NUM;
     ELSE
@@ -293,7 +293,7 @@ BEGIN
     LIMIT 1;
 
     IF ACCIDENT_NUM != '' THEN
-        SET lastNum = CONVERT(SUBSTRING(accident_num, -6), DECIMAL);
+        SET lastNum = CONVERT(SUBSTRING(ACCIDENT_NUM, -6), DECIMAL);
         SELECT CONCAT('ACC', currentDate, LPAD((lastNum + 1), 6, '0'))
         INTO ACCIDENT_NUM;
     ELSE
