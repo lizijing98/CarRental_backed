@@ -26,7 +26,7 @@ public class ImplException extends BaseException {
     }
 
     public ImplException(ResultCode resultCode, String errorMsg) {
-        super(errorMsg + "\n" + resultCode.getMessage(), resultCode.getCode());
+        super(resultCode.getMessage() + "\n" + errorMsg, resultCode.getCode());
         setResultCode(resultCode);
     }
 
