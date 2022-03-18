@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author LiZijing
- * @since 2022-03-14
+ * @since 2022-03-17
  */
 @Getter
 @Setter
@@ -35,7 +35,7 @@ public class Repair implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("维修单单编号")
+    @ApiModelProperty("维修单编号")
     @TableField("repair_num")
     private String repairNum;
 
