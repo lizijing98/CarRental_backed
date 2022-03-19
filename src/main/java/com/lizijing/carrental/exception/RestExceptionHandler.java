@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLException;
+
 /**
  * <p> 异常捕获 </p>
  *
@@ -24,8 +26,8 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public CommonResult<String> exception(Exception e) {
-        if (e instanceof BadSqlGrammarException) {
-            // 数据库语法异常
+        if (e instanceof BadSqlGrammarException|| e instanceof SQLException) {
+            // 数据库异常
             log.error("DB Error:", e);
             return CommonResult.failed(ResultCode.DB_ERROR, e.getMessage());
         } else if (e instanceof DuplicateKeyException) {

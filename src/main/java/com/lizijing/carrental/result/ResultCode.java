@@ -38,11 +38,13 @@ public enum ResultCode {
     REPAIR_STATUS_ERROR(5006002, "维修单状态异常"),
     REPAIR_EXIST_ERROR(5006003, "不存在的维修单信息"),
     REPAIR_LOCATE_ERROR(5006004, "缺少必要的维修单信息"),
+    REPAIR_NOT_PROCESSED(5006005, "维修单未处理完成"),
     // 事故单异常
     ACCIDENT_ERROR(5007001, "事故单操作异常"),
     ACCIDENT_STATUS_ERROR(5007002, "事故单状态异常"),
     ACCIDENT_EXIST_ERROR(5007003, "不存在的事故单信息"),
-    ACCIDENT_LOCATE_ERROR(5007004, "缺少必要的订单信息");
+    ACCIDENT_LOCATE_ERROR(5007004, "缺少必要的订单信息"),
+    ACCIDENT_ADD_REPAIR_ERROR(5007005, "新增对应维修单操作异常");
 
 
     private final long code;

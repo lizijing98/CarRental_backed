@@ -4,16 +4,28 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.bean.Accident">
-        <id column="id" property="id" />
-        <result column="accident_num" property="accidentNum" />
-        <result column="user_id" property="userId" />
-        <result column="car_id" property="carId" />
-        <result column="operator_id" property="operatorId" />
-        <result column="status" property="status" />
-        <result column="description" property="description" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_deleted" property="isDeleted" />
+        <id column="id" property="id"/>
+        <result column="accident_num" property="accidentNum"/>
+        <result column="user_id" property="userId"/>
+        <result column="car_id" property="carId"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="status" property="status"/>
+        <result column="description" property="description"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
+    <select id="selectByAccidentNum" resultType="com.lizijing.carrental.entity.bean.Accident">
+        SELECT *
+        FROM car_rental.tb_accident a
+        WHERE a.accident_num = #{accidentNum}
+          AND a.is_deleted = 0;
+    </select>
+    <select id="getIdByAccidentNum" resultType="java.lang.Long">
+        SELECT a.id
+        FROM car_rental.tb_accident a
+        WHERE a.accident_num = #{accidentNum}
+          AND a.is_deleted = 0;
+    </select>
 
 </mapper>

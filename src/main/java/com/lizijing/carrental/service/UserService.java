@@ -2,7 +2,6 @@ package com.lizijing.carrental.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lizijing.carrental.entity.bean.User;
-import com.lizijing.carrental.entity.vo.CarUpdateVO;
 import com.lizijing.carrental.entity.vo.UserAddVO;
 import com.lizijing.carrental.entity.vo.UserEnhanceVO;
 import com.lizijing.carrental.entity.vo.UserUpdateVO;

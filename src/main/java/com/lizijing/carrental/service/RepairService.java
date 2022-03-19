@@ -52,7 +52,7 @@ public interface RepairService extends IService<Repair> {
      * @param userId     用户 ID
      * @param carId      车辆 ID
      * @param operatorId 操作员 ID
-     * @param status     订单状态
+     * @param status     维修单状态
      * @return 结果
      */
     CommonResult<Map<Object, Object>> select(Integer id, String repairNum, Integer userId, Integer carId, Integer operatorId, String status);
@@ -74,4 +74,12 @@ public interface RepairService extends IService<Repair> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> modifyStatus(String repairNum, Integer status, Integer operatorId);
+
+    /**
+     * 内部接口 通过维修单编号获取维修单实体
+     *
+     * @param repairNum 维修单编号
+     * @return 维修单实体
+     */
+    Repair getOneByRepairNum(String repairNum);
 }

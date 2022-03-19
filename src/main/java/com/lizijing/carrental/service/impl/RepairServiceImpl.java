@@ -113,8 +113,13 @@ public class RepairServiceImpl extends ServiceImpl<RepairMapper, Repair> impleme
         }
         modifyRep.setStatus(StatusEnum.getStatus(status));
         this.updateById(modifyRep);
-        res.put("delRepairId", modifyRep.getId());
-        res.put("delRepairNum", modifyRep.getRepairNum());
+        res.put("modifyRepairId", modifyRep.getId());
+        res.put("modifyRepairNum", modifyRep.getRepairNum());
         return CommonResult.success("modify repair status success", res);
+    }
+
+    @Override
+    public Repair getOneByRepairNum(String repairNum) {
+        return repairMapper.selectByRepairNum(repairNum);
     }
 }

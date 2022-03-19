@@ -80,6 +80,7 @@ public class RepairController {
             @ApiImplicitParam(paramType = "query", name = "operatorId", value = "操作员 ID", example = "1", allowEmptyValue = true, dataTypeClass = Integer.class),
             @ApiImplicitParam(paramType = "query", name = "status", value = "维修单状态", allowEmptyValue = true, dataTypeClass = String.class),
     })
+    @RequestMapping(value = "/select", method = RequestMethod.GET)
     public CommonResult<Map<Object, Object>> select(@RequestParam(value = "id", required = false) @Positive(message = "不合法的维修单 ID") Integer id,
                                                     @RequestParam(value = "repairNum", required = false) String repairNum,
                                                     @RequestParam(value = "userId", required = false) @Positive(message = "不合法的用户 ID") Integer userId,
