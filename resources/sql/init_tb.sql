@@ -98,16 +98,16 @@ CREATE TABLE `tb_order`
 DROP TABLE IF EXISTS `tb_repair`;
 CREATE TABLE `tb_repair`
 (
-    id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '维修单 ID',
-    repair_num  VARCHAR(17)         NOT NULL UNIQUE COMMENT '维修单编号',
-    user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
-    car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
-    operator_id BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
-    status      VARCHAR(255)        NULL COMMENT '当前状态',
-    description VARCHAR(255)        NULL COMMENT '备注',
-    create_time TIMESTAMP           NULL DEFAULT NOW() COMMENT '创建时间',
-    update_time TIMESTAMP           NULL COMMENT '更新时间',
-    is_deleted  TINYINT(1)          NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
+    id          BIGINT(12) UNSIGNED                           NOT NULL AUTO_INCREMENT COMMENT '维修单 ID',
+    repair_num  VARCHAR(17)                                   NOT NULL UNIQUE COMMENT '维修单编号',
+    user_id     BIGINT(12) UNSIGNED                           NOT NULL COMMENT '用户 ID',
+    car_id      BIGINT(12) UNSIGNED                           NOT NULL COMMENT '车辆 ID',
+    operator_id BIGINT(12) UNSIGNED                           NOT NULL COMMENT '操作员 ID',
+    status      ENUM ('UNPROCESSED','PROCESSING','PROCESSED') NULL DEFAULT 'UNPROCESSED' COMMENT '当前状态',
+    description VARCHAR(255)                                  NULL COMMENT '备注',
+    create_time TIMESTAMP                                     NULL DEFAULT NOW() COMMENT '创建时间',
+    update_time TIMESTAMP                                     NULL COMMENT '更新时间',
+    is_deleted  TINYINT(1)                                    NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_order_id (id) USING BTREE COMMENT '维修单 ID 主键'
 )
     COMMENT '维修单表'
@@ -117,16 +117,17 @@ CREATE TABLE `tb_repair`
 DROP TABLE IF EXISTS `tb_accident`;
 CREATE TABLE `tb_accident`
 (
-    id           BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '事故单 ID',
-    accident_num VARCHAR(17)         NOT NULL UNIQUE COMMENT '事故单编号',
-    user_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
-    car_id       BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
-    operator_id  BIGINT(12) UNSIGNED NOT NULL COMMENT '操作员 ID',
-    status       VARCHAR(255)        NULL COMMENT '当前状态',
-    description  VARCHAR(255)        NULL COMMENT '备注',
-    create_time  TIMESTAMP           NULL DEFAULT NOW() COMMENT '创建时间',
-    update_time  TIMESTAMP           NULL COMMENT '更新时间',
-    is_deleted   TINYINT(1)          NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
+    id           BIGINT(12) UNSIGNED                           NOT NULL AUTO_INCREMENT COMMENT '事故单 ID',
+    accident_num VARCHAR(17)                                   NOT NULL UNIQUE COMMENT '事故单编号',
+    user_id      BIGINT(12) UNSIGNED                           NOT NULL COMMENT '用户 ID',
+    car_id       BIGINT(12) UNSIGNED                           NOT NULL COMMENT '车辆 ID',
+    operator_id  BIGINT(12) UNSIGNED                           NOT NULL COMMENT '操作员 ID',
+    status       ENUM ('UNPROCESSED','PROCESSING','PROCESSED') NULL DEFAULT 'UNPROCESSED' COMMENT '当前状态',
+    repair_num   VARCHAR(17)                                   NULL COMMENT '维修单编号',
+    description  VARCHAR(255)                                  NULL COMMENT '备注',
+    create_time  TIMESTAMP                                     NULL DEFAULT NOW() COMMENT '创建时间',
+    update_time  TIMESTAMP                                     NULL COMMENT '更新时间',
+    is_deleted   TINYINT(1)                                    NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_order_id (id) USING BTREE COMMENT '事故单 ID 主键'
 )
     COMMENT '事故单表'
@@ -280,26 +281,26 @@ CREATE TRIGGER `generateAccidentNum`
 BEGIN
     DECLARE currentDate VARCHAR(8);
     DECLARE lastNum BIGINT UNSIGNED DEFAULT 0;
-    DECLARE ACCIDENT_NUM VARCHAR(17);
+    DECLARE ACC_NUM VARCHAR(17);
     SELECT DATE_FORMAT(NOW(), '%Y%m%d') INTO currentDate;
 
     /*查找当日最后一个维修单编号*/
     SELECT IFNULL(`accident_num`, 'notnull')
-    INTO ACCIDENT_NUM
+    INTO ACC_NUM
     FROM `tb_accident`
     WHERE SUBSTRING(`accident_num`, 1, 3) = 'ACC'
       AND SUBSTRING(`accident_num`, 4, 8) = currentDate
     ORDER BY id DESC
     LIMIT 1;
 
-    IF ACCIDENT_NUM != '' THEN
-        SET lastNum = CONVERT(SUBSTRING(ACCIDENT_NUM, -6), DECIMAL);
+    IF ACC_NUM != '' THEN
+        SET lastNum = CONVERT(SUBSTRING(ACC_NUM, -6), DECIMAL);
         SELECT CONCAT('ACC', currentDate, LPAD((lastNum + 1), 6, '0'))
-        INTO ACCIDENT_NUM;
+        INTO ACC_NUM;
     ELSE
         SELECT CONCAT('ACC', currentDate, LPAD((lastNum + 1), 6, '0'))
-        INTO ACCIDENT_NUM;
+        INTO ACC_NUM;
     END IF;
 
-    SET NEW.`accident_num` = ACCIDENT_NUM;
+    SET NEW.`accident_num` = ACC_NUM;
 END;
