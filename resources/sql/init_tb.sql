@@ -5,21 +5,21 @@ USE `car_rental`;
 DROP TABLE IF EXISTS `tb_car`;
 CREATE TABLE `tb_car`
 (
-    id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '车辆 ID',
-    car_number  VARCHAR(255)        NOT NULL COMMENT '车牌号',
-    brand       VARCHAR(255)        NOT NULL COMMENT '品牌',
-    model       VARCHAR(255)        NOT NULL COMMENT '型号',
-    type        VARCHAR(255)        NOT NULL COMMENT '车型',
-    price       DOUBLE(10, 2)       NULL COMMENT '租金/天',
-    deposit     DOUBLE(10, 2)       NULL COMMENT '定金',
-    store_name  VARCHAR(255)        NULL COMMENT '当前所在门店名称',
-    img         VARCHAR(255)        NULL COMMENT '车辆照片',
-    status      VARCHAR(255)        NULL COMMENT '车辆当前状态',
-    description VARCHAR(255)        NULL COMMENT '备注',
-    create_time TIMESTAMP           NULL DEFAULT NOW() COMMENT '创建时间',
-    update_time TIMESTAMP           NULL COMMENT '更新时间',
-    is_deleted  TINYINT(1)          NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
-    is_usable   TINYINT(1)          NULL DEFAULT 0 COMMENT '可用标记,0 为可用,1 为不可用',
+    id          BIGINT(12) UNSIGNED                           NOT NULL AUTO_INCREMENT COMMENT '车辆 ID',
+    car_number  VARCHAR(255)                                  NOT NULL COMMENT '车牌号',
+    brand       VARCHAR(255)                                  NOT NULL COMMENT '品牌',
+    model       VARCHAR(255)                                  NOT NULL COMMENT '型号',
+    type        VARCHAR(255)                                  NOT NULL COMMENT '车型',
+    price       DOUBLE(10, 2)                                 NULL COMMENT '租金/天',
+    deposit     DOUBLE(10, 2)                                 NULL COMMENT '定金',
+    store_name  VARCHAR(255)                                  NULL COMMENT '当前所在门店名称',
+    img         VARCHAR(255)                                  NULL COMMENT '车辆照片',
+    status      ENUM ('NORMAL','USING','FAULT','UNAVAILABLE') NULL DEFAULT 'NORMAL' COMMENT '车辆当前状态',
+    description VARCHAR(255)                                  NULL COMMENT '备注',
+    create_time TIMESTAMP                                     NULL DEFAULT NOW() COMMENT '创建时间',
+    update_time TIMESTAMP                                     NULL COMMENT '更新时间',
+    is_deleted  TINYINT(1)                                    NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
+    is_usable   TINYINT(1)                                    NULL DEFAULT 0 COMMENT '可用标记,0 为可用,1 为不可用',
     PRIMARY KEY pk_car_id (id) USING BTREE COMMENT '车辆 ID 主键',
     UNIQUE INDEX idx_car_num (car_number) USING BTREE COMMENT '车牌号唯一索引'
 )
@@ -77,18 +77,19 @@ CREATE TABLE `tb_user`
 DROP TABLE IF EXISTS `tb_order`;
 CREATE TABLE `tb_order`
 (
-    id          BIGINT(12) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单 ID',
-    order_num   VARCHAR(17)         NOT NULL UNIQUE COMMENT '订单编号',
-    user_id     BIGINT(12) UNSIGNED NOT NULL COMMENT '用户 ID',
-    car_id      BIGINT(12) UNSIGNED NOT NULL COMMENT '车辆 ID',
-    operator_id BIGINT(12) UNSIGNED NULL COMMENT '操作员 ID',
-    start_time  TIMESTAMP           NOT NULL COMMENT '开始时间',
-    finish_time TIMESTAMP           NULL COMMENT '结束时间',
-    total_price DOUBLE(10, 2)       NULL COMMENT '订单总价',
-    description VARCHAR(255)        NULL COMMENT '备注',
-    create_time TIMESTAMP           NULL DEFAULT NOW() COMMENT '创建时间',
-    update_time TIMESTAMP           NULL COMMENT '更新时间',
-    is_deleted  TINYINT(1)          NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
+    id          BIGINT(12) UNSIGNED                         NOT NULL AUTO_INCREMENT COMMENT '订单 ID',
+    order_num   VARCHAR(17)                                 NOT NULL UNIQUE COMMENT '订单编号',
+    user_id     BIGINT(12) UNSIGNED                         NOT NULL COMMENT '用户 ID',
+    car_id      BIGINT(12) UNSIGNED                         NOT NULL COMMENT '车辆 ID',
+    operator_id BIGINT(12) UNSIGNED                         NULL COMMENT '操作员 ID',
+    start_time  TIMESTAMP                                   NOT NULL COMMENT '开始时间',
+    finish_time TIMESTAMP                                   NULL COMMENT '结束时间',
+    total_price DOUBLE(10, 2)                               NULL COMMENT '订单总价',
+    status      ENUM ('IN_PROGRESS','COMPLETED','ACCIDENT') NULL DEFAULT 'IN_PROGRESS' COMMENT '当前状态',
+    description VARCHAR(255)                                NULL COMMENT '备注',
+    create_time TIMESTAMP                                   NULL DEFAULT NOW() COMMENT '创建时间',
+    update_time TIMESTAMP                                   NULL COMMENT '更新时间',
+    is_deleted  TINYINT(1)                                  NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
     PRIMARY KEY pk_order_id (id) USING BTREE COMMENT '订单 ID 主键'
 )
     COMMENT '订单表'
