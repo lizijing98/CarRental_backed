@@ -20,7 +20,19 @@ public enum StatusEnum {
     // 处理中
     PROCESSING(2, "PROCESSING"),
     // 已处理
-    PROCESSED(3, "PROCESSED");
+    PROCESSED(3, "PROCESSED"),
+    // 订单进行中
+    ORD_IN_PROGRESS(1, "IN_PROGRESS"),
+    // 订单完成
+    ORD_COMPLETED(2, "COMPLETED"),
+    // 订单转事故
+    ORD_ACCIDENT(3, "ACCIDENT"),
+    // 车辆正常
+    CAR_NORMAL(1,"NORMAL"),
+    // 车辆使用中
+    CAR_USING(2,"USING"),
+    // 车辆故障
+    CAR_FAULT(3,"FAULT");
 
     public final Integer code;
     public final String status;

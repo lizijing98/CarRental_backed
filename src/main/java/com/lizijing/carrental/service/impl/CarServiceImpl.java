@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lizijing.carrental.constant.StatusConstant;
 import com.lizijing.carrental.entity.bean.Car;
+import com.lizijing.carrental.entity.enums.StatusEnum;
 import com.lizijing.carrental.entity.vo.CarAddVO;
 import com.lizijing.carrental.entity.vo.CarUpdateVO;
 import com.lizijing.carrental.exception.ImplException;
@@ -65,7 +65,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         if (delCar == null) {
             throw new ImplException(ResultCode.CAR_EXIST_ERROR);
         }
-        if (!delCar.getStatus().equals(StatusConstant.STATUS_NORMAL)) {
+        if (!delCar.getStatus().equals(StatusEnum.CAR_NORMAL.getStatus())) {
             throw new ImplException(ResultCode.CAR_STATUS_ERROR);
         }
         // 库存操作
