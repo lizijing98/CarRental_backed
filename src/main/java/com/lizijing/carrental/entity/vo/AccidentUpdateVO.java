@@ -29,7 +29,7 @@ public class AccidentUpdateVO {
     private Long id;
 
     @ApiModelProperty(
-            name = "repairNum",
+            name = "accidentNum",
             value = "事故单编号",
             example = "ACC20220317000001",
             position = 2
