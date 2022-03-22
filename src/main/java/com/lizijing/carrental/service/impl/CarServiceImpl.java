@@ -15,7 +15,6 @@ import com.lizijing.carrental.mapper.CarMapper;
 import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.result.ResultCode;
 import com.lizijing.carrental.service.CarService;
-import com.lizijing.carrental.service.StoreService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -37,7 +36,7 @@ import java.util.Map;
 public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarService {
 
     @Resource
-    private StoreService storeService;
+    private StoreServiceImpl storeService;
 
     @Resource
     private CarMapper carMapper;
@@ -119,5 +118,29 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         List<Car> cars = carMapper.selectList(queryWrapper);
         res.put("carInfos", cars);
         return CommonResult.success("get infos success", res);
+    }
+
+    @Override
+    public boolean changeStatus(Long carId, String status) {
+        try {
+            Car car = this.getById(carId);
+            car.setStatus(status);
+            this.updateById(car);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean changeStore(Long carId, Long storeId) {
+        try {
+            Car car = this.getById(carId);
+            car.setStoreName(storeService.getNameById(storeId));
+            this.updateById(car);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

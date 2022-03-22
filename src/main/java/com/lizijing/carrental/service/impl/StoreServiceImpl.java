@@ -127,4 +127,9 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
         res.put("storeInfo", updateStore);
         return CommonResult.success("update store info success", res);
     }
+
+    @Override
+    public String getNameById(Long storeId) {
+        return storeMapper.getNameById(storeId);
+    }
 }

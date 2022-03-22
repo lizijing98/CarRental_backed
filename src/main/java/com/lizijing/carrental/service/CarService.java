@@ -66,4 +66,22 @@ public interface CarService extends IService<Car> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> select(Integer id, String carNumber, String model, String storeName, String type, LocalDateTime createTime, Boolean isUsable);
+
+    /**
+     * 修改车辆状态
+     *
+     * @param carId  车辆 ID
+     * @param status 车辆状态
+     * @return 修改结果
+     */
+    boolean changeStatus(Long carId, String status);
+
+    /**
+     * 修改车辆所在门店
+     *
+     * @param carId   车辆 ID
+     * @param storeId 门店 ID
+     * @return 结果
+     */
+    boolean changeStore(Long carId, Long storeId);
 }

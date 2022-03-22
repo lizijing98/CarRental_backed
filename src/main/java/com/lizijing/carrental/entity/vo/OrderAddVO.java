@@ -5,22 +5,21 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
 /**
- * <p> 新增事故单接口参数 </p>
+ * <p> 新增订单接口参数 </p>
  *
  * @author LiZijing
- * @date 2022/3/18
+ * @date 2022/3/21
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
-@ApiModel(description = "新增事故单接口参数")
-public class AccidentAddVO {
+@ApiModel(description = "增加订单接口参数")
+public class OrderAddVO {
 
     @ApiModelProperty(
             name = "userId",
@@ -44,28 +43,37 @@ public class AccidentAddVO {
 
     @ApiModelProperty(
             name = "operatorId",
-            value = "维修员 ID",
+            value = "员工 ID",
             required = true,
             example = "1",
             position = 3
     )
-    @Positive(message = "不合法的维修员 ID")
+    @Positive(message = "不合法的员工 ID")
     private Long operatorId;
 
     @ApiModelProperty(
-            name = "description",
-            value = "维修单描述",
+            name = "startTime",
+            value = "开始时间",
             required = true,
+            example = "2022-03-21 21:55:03",
             position = 4
     )
-    private String description;
+    private LocalDateTime startTime;
 
     @ApiModelProperty(
-            name = "isCreateRepair",
-            value = "是否创建维修单",
+            name = "startStoreId",
+            value = "租车门店 ID",
             required = true,
-            example = "true",
+            example = "1",
             position = 5
     )
-    private Boolean isCreateRepair;
+    private Long startStoreId;
+
+    @ApiModelProperty(
+            name = "description",
+            value = "订单描述",
+            required = true,
+            position = 6
+    )
+    private String description;
 }

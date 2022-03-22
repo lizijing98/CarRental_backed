@@ -1,18 +1,14 @@
 package com.lizijing.carrental.entity.bean;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -51,6 +47,14 @@ public class Order implements Serializable {
     @TableField("operator_id")
     private Long operatorId;
 
+    @ApiModelProperty("租车门店 ID")
+    @TableId(value = "start_store_id")
+    private Long startStoreId;
+
+    @ApiModelProperty("还车门店 ID")
+    @TableId(value = "finish_store_id")
+    private Long finishStoreId;
+
     @ApiModelProperty("开始时间")
     @TableField("start_time")
     private LocalDateTime startTime;
@@ -62,6 +66,10 @@ public class Order implements Serializable {
     @ApiModelProperty("订单总价")
     @TableField("total_price")
     private Double totalPrice;
+
+    @ApiModelProperty("当前状态")
+    @TableField("`status`")
+    private String status;
 
     @ApiModelProperty("备注")
     @TableField("description")

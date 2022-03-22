@@ -22,4 +22,12 @@ public interface StoreMapper extends BaseMapper<Store> {
      * @return 门店实体
      */
     Store selectOneByStoreName(String storeName);
+
+    /**
+     * 根据门店 ID 获取门店名
+     *
+     * @param storeId 门店 ID
+     * @return 门店名
+     */
+    String getNameById(Long storeId);
 }

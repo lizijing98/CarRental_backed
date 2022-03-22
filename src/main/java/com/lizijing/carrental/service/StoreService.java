@@ -90,4 +90,12 @@ public interface StoreService extends IService<Store> {
      * @return 结果
      */
     CommonResult<Map<Object, Object>> updateOne(StoreUpdateVO storeUpdateVO);
+
+    /**
+     * 通过门店 ID 获取门店名
+     *
+     * @param storeId 门店 ID
+     * @return 门店名
+     */
+    String getNameById(Long storeId);
 }

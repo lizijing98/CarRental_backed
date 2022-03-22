@@ -23,5 +23,11 @@
         WHERE s.store_name = #{storeName}
           AND s.is_deleted = 0;
     </select>
+    <select id="getNameById" resultType="java.lang.String">
+        SELECT s.store_name
+        FROM car_rental.tb_store s
+        WHERE s.id = #{storeId}
+          AND s.is_deleted = 0;
+    </select>
 
 </mapper>

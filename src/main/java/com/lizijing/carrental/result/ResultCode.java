@@ -24,6 +24,7 @@ public enum ResultCode {
     CAR_ERROR(5003001, "车辆操作异常"),
     CAR_STATUS_ERROR(5003002, "车辆状态异常"),
     CAR_EXIST_ERROR(5003003, "不存在的车辆信息"),
+    CAR_WAREHOUSING_ERROR(5003004, "车辆入库异常"),
     // 人员异常
     USER_ERROR(5004001, "用户操作异常"),
     USER_STATUS_ERROR(5004002, "用户状态异常"),
@@ -33,6 +34,8 @@ public enum ResultCode {
     ORDER_STATUS_ERROR(5005002, "订单状态异常"),
     ORDER_EXIST_ERROR(5005003, "不存在的订单信息"),
     ORDER_LOCATE_ERROR(5005004, "缺少必要的订单信息"),
+    ORDER_NOT_IN_STORE(5005005, "不在此门店的车辆"),
+    ORDER_IS_FINISHED(5005006, "已完成的订单"),
     // 维修单异常
     REPAIR_ERROR(5006001, "维修单操作异常"),
     REPAIR_STATUS_ERROR(5006002, "维修单状态异常"),
