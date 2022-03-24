@@ -40,7 +40,7 @@ public class OrderController {
     }
 
     @ApiOperation(value = "完成订单")
-    @ApiImplicitParam
+    @ApiImplicitParam(name = "orderFinishVO", value = "完成订单接口参数", required = true, dataTypeClass = OrderFinishVO.class)
     @RequestMapping(value = "/finish", method = RequestMethod.PUT)
     public CommonResult<Map<Object, Object>> finishOne(@Validated @RequestBody OrderFinishVO orderFinishVO) {
         return orderService.finish(orderFinishVO);

@@ -48,11 +48,11 @@ public class Order implements Serializable {
     private Long operatorId;
 
     @ApiModelProperty("租车门店 ID")
-    @TableId(value = "start_store_id")
+    @TableField(value = "start_store_id")
     private Long startStoreId;
 
     @ApiModelProperty("还车门店 ID")
-    @TableId(value = "finish_store_id")
+    @TableField(value = "finish_store_id")
     private Long finishStoreId;
 
     @ApiModelProperty("开始时间")
