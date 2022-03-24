@@ -22,4 +22,11 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @return 订单实体
      */
     Order selectByOrderNum(String orderNum);
+
+    /**
+     * 根据订单编号查询订单 ID
+     * @param orderNum 订单编号
+     * @return 订单 ID
+     */
+    Long getIdByOrderNum(String orderNum);
 }

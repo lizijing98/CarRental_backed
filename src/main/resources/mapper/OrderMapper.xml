@@ -23,5 +23,11 @@
         WHERE o.order_num = #{orderNum}
           AND o.is_deleted = 0;
     </select>
+    <select id="getIdByOrderNum" resultType="java.lang.Long">
+        SELECT o.id
+        FROM car_rental.tb_order o
+        WHERE o.order_num = #{orderNum}
+          AND o.is_deleted = 0;
+    </select>
 
 </mapper>
