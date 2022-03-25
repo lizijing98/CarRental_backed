@@ -10,6 +10,7 @@
         <result column="car_id" property="carId"/>
         <result column="operator_id" property="operatorId"/>
         <result column="status" property="status"/>
+        <result column="repair_num" property="repairNum"/>
         <result column="description" property="description"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
