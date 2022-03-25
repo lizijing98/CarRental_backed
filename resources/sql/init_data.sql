@@ -6,6 +6,10 @@ VALUES ('苏AT0001', '大众', '帕萨特', '轿车', '180', '500', '公司总�
        ('苏AT0002', '大众', '宝来', '轿车', '130', '400', '公司总仓库', '正常', '测试 2 号车'),
        ('苏AT0003', '大众', '途观', 'SUV', '180', '500', '公司总仓库', '正常', '测试 3 号车');
 
+TRUNCATE `tb_store`;
+INSERT INTO `tb_store`(store_name, stock_limit, stock_now)
+VALUES ('公司总仓库', ~0 >> 40, 3);
+
 TRUNCATE `sys_role`;
 INSERT INTO `sys_role`(id, role_name, role_cn, description)
 VALUES (1, 'superadmin', '超级管理员', '系统超级管理员，拥有所有超级权限'),
@@ -13,10 +17,6 @@ VALUES (1, 'superadmin', '超级管理员', '系统超级管理员，拥有所�
        (3, 'salesman', '业务员', '业务员，业务人员用，维护客户信息、车辆信息、审核订单信息'),
        (4, 'troubleshooter', '故障处理专员', '故障处理专员，负责处理事故单，维修单'),
        (5, 'user', '用户', '用户');
-
-TRUNCATE `tb_store`;
-INSERT INTO `tb_store`(store_name, stock_limit)
-VALUES ('公司总仓库', ~0 >> 40);
 
 TRUNCATE `sys_permission`;
 INSERT INTO `sys_permission`(id, permission_name, permission_cn, description)
@@ -153,3 +153,28 @@ VALUES (1, 11),
        (5, 51),
        (5, 52);
 
+TRUNCATE `tb_user`;
+INSERT INTO `tb_user`(id, username, nickname, password, real_name, description)
+VALUES (1, 'superadmin', 'superadmin', 'superadmin', '超级管理员', '超级管理员账号'),
+       (2, 'admin', 'admin', 'admin', '管理员', '管理员账号'),
+       (3, 'operator1', 'operator1', 'operator1', '操作员 1', '操作员 1'),
+       (4, 'operator2', 'operator2', 'operator3', '操作员 2', '操作员 2'),
+       (5, 'salesman1', 'salesman1', 'salesman1', '销售员 1', '销售员 1'),
+       (6, 'salesman2', 'salesman2', 'salesman2', '销售员 2', '销售员 2'),
+       (7, 'repairman1', 'repairman1', 'repairman1', '维修员 1', '维修员 1'),
+       (8, 'repairman2', 'repairman2', 'repairman2', '维修员 2', '维修员 2'),
+       (9, 'user1', 'user1', 'user1', '顾客 1', '顾客 1'),
+       (10, 'user2', 'user2', 'user2', '顾客 2', '顾客 2');
+
+TRUNCATE `sys_user_role`;
+INSERT INTO `sys_user_role`(user_id, role_id)
+VALUES (1, 1),
+       (2, 2),
+       (3, 3),
+       (4, 3),
+       (5, 3),
+       (6, 3),
+       (7, 4),
+       (8, 4),
+       (9, 5),
+       (10, 5);
