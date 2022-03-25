@@ -86,6 +86,7 @@ CREATE TABLE `tb_order`
     finish_store_id BIGINT(12) UNSIGNED                         NULL COMMENT '还车门店 ID',
     start_time      TIMESTAMP                                   NOT NULL COMMENT '开始时间',
     finish_time     TIMESTAMP                                   NULL COMMENT '结束时间',
+    total_time      DOUBLE(10, 2)                               NULL COMMENT '订单总时间',
     total_price     DOUBLE(10, 2)                               NULL COMMENT '订单总价',
     status          ENUM ('IN_PROGRESS','COMPLETED','ACCIDENT') NULL DEFAULT 'IN_PROGRESS' COMMENT '当前状态',
     description     VARCHAR(255)                                NULL COMMENT '备注',

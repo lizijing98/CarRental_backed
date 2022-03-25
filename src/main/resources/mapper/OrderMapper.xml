@@ -9,9 +9,13 @@
         <result column="user_id" property="userId"/>
         <result column="car_id" property="carId"/>
         <result column="operator_id" property="operatorId"/>
+        <result column="start_store_id" property="startStoreId"/>
+        <result column="finish_store_id" property="finishStoreId"/>
         <result column="start_time" property="startTime"/>
         <result column="finish_time" property="finishTime"/>
+        <result column="total_time" property="totalTime"/>
         <result column="total_price" property="totalPrice"/>
+        <result column="status" property="status"/>
         <result column="description" property="description"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>

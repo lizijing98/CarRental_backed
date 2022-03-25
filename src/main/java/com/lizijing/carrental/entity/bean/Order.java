@@ -63,6 +63,10 @@ public class Order implements Serializable {
     @TableField("finish_time")
     private LocalDateTime finishTime;
 
+    @ApiModelProperty("订单总时间")
+    @TableField("total_time")
+    private Double totalTime;
+
     @ApiModelProperty("订单总价")
     @TableField("total_price")
     private Double totalPrice;

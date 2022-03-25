@@ -121,7 +121,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 计算订单总价
         Date beginTime = Date.from(order.getStartTime().atZone(ZoneId.systemDefault()).toInstant());
         Date endTime = Date.from(order.getFinishTime().atZone(ZoneId.systemDefault()).toInstant());
-        Long betweenTime = DateUtil.between(beginTime, endTime, DateUnit.HOUR);
+        Double betweenTime = DateUtil.between(beginTime, endTime, DateUnit.MINUTE) / 60.0;
+        order.setTotalTime(betweenTime);
         order.setTotalPrice(betweenTime * car.getPrice());
         this.updateById(order);
         res.put("orderInfo", this.getById(order.getId()));

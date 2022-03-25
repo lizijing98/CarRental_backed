@@ -43,7 +43,7 @@ public class OrderFinishVO {
     @ApiModelProperty(
             name = "finishTime",
             value = "订单结束时间",
-            example = "2022-03-21T22:35:39Z",
+            example = "2022-03-21 22:35:39",
             required = true,
             position = 3
     )
