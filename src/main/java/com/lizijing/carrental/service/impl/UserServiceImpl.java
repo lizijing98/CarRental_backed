@@ -42,10 +42,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserRoleService userRoleService;
     @Resource
     private UserinfoMapper userinfoMapper;
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public CommonResult<Map<Object, Object>> addOne(UserAddVO userAddVO) {
         Map<Object, Object> res = new HashMap<>(8);
+        if (userMapper.selectByUsername(userAddVO.getUsername()) != null) {
+            throw new ImplException(ResultCode.DB_Duplicate_ERROR, "username: " + userAddVO.getUsername());
+        }
         User addUser = BeanUtil.copyProperties(userAddVO, User.class);
         this.saveOrUpdate(addUser);
         UserRole addUserRole = userRoleService.getOne(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, addUser.getId()));

@@ -1,7 +1,7 @@
 package com.lizijing.carrental.mapper;
 
-import com.lizijing.carrental.entity.bean.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lizijing.carrental.entity.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -15,4 +15,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
+    /**
+     * 通过用户名查询用户实体
+     *
+     * @param username 用户名
+     * @return 用户实体
+     */
+    User selectByUsername(String username);
 }

@@ -4,19 +4,24 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lizijing.carrental.entity.bean.User">
-        <id column="id" property="id" />
-        <result column="username" property="username" />
-        <result column="nickname" property="nickname" />
-        <result column="password" property="password" />
-        <result column="real_name" property="realName" />
-        <result column="sex" property="sex" />
-        <result column="phone_number" property="phoneNumber" />
-        <result column="email" property="email" />
-        <result column="description" property="description" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_deleted" property="isDeleted" />
-        <result column="is_disable" property="isDisable" />
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="password" property="password"/>
+        <result column="real_name" property="realName"/>
+        <result column="sex" property="sex"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="email" property="email"/>
+        <result column="description" property="description"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="is_disable" property="isDisable"/>
     </resultMap>
+    <select id="selectByUsername" resultType="com.lizijing.carrental.entity.bean.User">
+        SELECT *
+        FROM car_rental.tb_user u
+        WHERE username = #{username};
+    </select>
 
 </mapper>
