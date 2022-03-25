@@ -5,6 +5,7 @@ import com.lizijing.carrental.entity.vo.CarAddVO;
 import com.lizijing.carrental.entity.vo.CarUpdateVO;
 import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.service.CarService;
+import com.lizijing.carrental.service.impl.CarServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,7 +32,7 @@ import java.util.Map;
 @Api(value = "车辆操作接口")
 public class CarController {
     @Resource
-    private CarService carService;
+    private CarServiceImpl carService;
 
     @ApiOperation(value = "增加车辆信息")
     @ApiImplicitParam(name = "carAddVO", value = "增加车辆接口参数", required = true, dataTypeClass = CarAddVO.class)

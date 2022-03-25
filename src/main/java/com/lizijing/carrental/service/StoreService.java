@@ -98,4 +98,12 @@ public interface StoreService extends IService<Store> {
      * @return 门店名
      */
     String getNameById(Long storeId);
+
+    /**
+     * 内部接口：通过门店名查询门店实体
+     *
+     * @param storeName 门店名
+     * @return 门店实体
+     */
+    Store getByName(String storeName);
 }

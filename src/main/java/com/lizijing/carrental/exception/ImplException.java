@@ -20,6 +20,14 @@ public class ImplException extends BaseException {
 
     private ResultCode resultCode;
 
+    public ImplException(Exception e) {
+        if (e instanceof ImplException) {
+            this.resultCode = ((ImplException) e).resultCode;
+        } else {
+            this.resultCode = ResultCode.SYS_ERROR;
+        }
+    }
+
     public ImplException(ResultCode resultCode) {
         super(resultCode.getMessage(), resultCode.getCode());
         setResultCode(resultCode);

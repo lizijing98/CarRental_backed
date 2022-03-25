@@ -15,6 +15,7 @@ import com.lizijing.carrental.result.CommonResult;
 import com.lizijing.carrental.result.ResultCode;
 import com.lizijing.carrental.service.StoreService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -36,8 +37,12 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
     private StoreMapper storeMapper;
 
     @Override
+    @Transactional(rollbackFor = ImplException.class)
     public boolean addCarStock(String storeName) {
         Store store = storeMapper.selectOneByStoreName(storeName);
+        if (store == null) {
+            throw new ImplException(ResultCode.STORE_EXIST_ERROR);
+        }
         // 若增加车辆库存超过现有库存则返回 false
         if (store.getStockNow() + 1 <= store.getStockLimit()) {
             store.setStockNow(store.getStockNow() + 1);
@@ -45,12 +50,16 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
             this.updateById(store);
             return true;
         }
-        return false;
+        throw new ImplException(ResultCode.STORE_MORE_ERROR, storeName + ResultCode.STORE_MORE_ERROR.message);
     }
 
     @Override
+    @Transactional(rollbackFor = ImplException.class)
     public boolean reduceCarStock(String storeName) {
         Store store = storeMapper.selectOneByStoreName(storeName);
+        if (store == null) {
+            throw new ImplException(ResultCode.STORE_EXIST_ERROR);
+        }
         // 当前库存为 0 则返回 false
         if (store.getStockNow() != 0) {
             store.setStockNow(store.getStockNow() - 1);
@@ -58,17 +67,26 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
             this.updateById(store);
             return true;
         }
-        return false;
+        throw new ImplException(ResultCode.STORE_ZERO_ERROR, storeName + ResultCode.STORE_ZERO_ERROR.message);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean removeCar(String oldStore, String newStore) {
         // 减少原门店库存成功且新增新门店库存成功才成功，否则失败
-        // todo:需要考虑回滚
         try {
-            return reduceCarStock(oldStore) && addCarStock(newStore);
+            Store newOne = storeMapper.selectOneByStoreName(newStore);
+            if (newOne == null) {
+                throw new ImplException(ResultCode.STORE_EXIST_ERROR);
+            }
+            if (newOne.getStockLast() == 0) {
+                throw new ImplException(ResultCode.STORE_MORE_ERROR);
+            }
+            this.addCarStock(newStore);
+            this.reduceCarStock(oldStore);
+            return true;
         } catch (Exception e) {
-            throw new ImplException(ResultCode.STORE_ERROR);
+            throw new ImplException(e);
         }
     }
 
@@ -135,5 +153,10 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
     @Override
     public String getNameById(Long storeId) {
         return storeMapper.getNameById(storeId);
+    }
+
+    @Override
+    public Store getByName(String storeName) {
+        return storeMapper.selectOneByStoreName(storeName);
     }
 }

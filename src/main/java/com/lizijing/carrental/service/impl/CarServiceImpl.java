@@ -97,6 +97,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         if (carUpdateVO.getStoreName() != null) {
             String oldStoreName = carMapper.getStoreName(updateCar.getId());
             storeService.removeCar(oldStoreName, carUpdateVO.getStoreName());
+            res.put("newStoreInfo",storeService.getByName(carUpdateVO.getStoreName()));
         }
         this.updateById(updateCar);
         res.put("carInfo", updateCar);

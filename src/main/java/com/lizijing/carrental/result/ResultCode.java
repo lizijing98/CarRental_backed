@@ -50,8 +50,8 @@ public enum ResultCode {
     ACCIDENT_ADD_REPAIR_ERROR(5007005, "新增对应维修单操作异常");
 
 
-    private final long code;
-    private final String message;
+    public final long code;
+    public final String message;
 
     ResultCode(long code, String message) {
         this.code = code;
