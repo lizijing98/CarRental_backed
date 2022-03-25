@@ -84,7 +84,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public CommonResult<Map<Object, Object>> finish(OrderFinishVO orderFinishVO) {
         Map<Object, Object> res = new HashMap<>(8);
         Order order = orderMapper.selectByOrderNum(orderFinishVO.getOrderNum());
-        Car car = carService.getById(orderFinishVO.getCarId());
+        Car car = carService.getById(order.getCarId());
         // 判断是否为已结束订单
         if (!order.getStatus().equals(StatusEnum.ORD_IN_PROGRESS.status)) {
             throw new ImplException(ResultCode.ORDER_IS_FINISHED);
@@ -94,7 +94,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             AccidentAddVO accidentAddVO = BeanUtil.copyProperties(orderFinishVO, AccidentAddVO.class);
             accidentAddVO.setIsCreateRepair(true);
             Map<Object, Object> addAccRes = accidentService.addOne(accidentAddVO).getData();
-            carService.changeStatus(orderFinishVO.getCarId(), StatusEnum.CAR_FAULT.status);
+            carService.changeStatus(order.getCarId(), StatusEnum.CAR_FAULT.status);
             order.setFinishTime(orderFinishVO.getFinishTime())
                     .setStatus(orderFinishVO.getStatus());
             this.updateById(order);
@@ -107,7 +107,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                     .setStatus(orderFinishVO.getStatus());
         }
         // 修改车辆状态
-        if (!carService.changeStatus(orderFinishVO.getCarId(), StatusEnum.CAR_NORMAL.status)) {
+        if (!carService.changeStatus(order.getCarId(), StatusEnum.CAR_NORMAL.status)) {
             throw new ImplException(ResultCode.CAR_STATUS_ERROR);
         }
         // 修改门店库存
@@ -115,7 +115,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             throw new ImplException(ResultCode.STORE_MORE_ERROR);
         }
         // 修改车辆所在位置
-        if (!carService.changeStore(orderFinishVO.getCarId(), orderFinishVO.getFinishStoreId())) {
+        if (!carService.changeStore(order.getCarId(), orderFinishVO.getFinishStoreId())) {
             throw new ImplException(ResultCode.CAR_WAREHOUSING_ERROR);
         }
         // 计算订单总价

@@ -5,6 +5,7 @@ import com.lizijing.carrental.result.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -47,6 +48,10 @@ public class RestExceptionHandler {
             log.error("Impl Error:", e);
             String defMsg = Objects.requireNonNull(argE.getFieldError()).getDefaultMessage();
             return CommonResult.failed(ResultCode.SYS_PARAMS_ERROR, defMsg);
+        } else if (e instanceof HttpMessageNotReadableException) {
+            // 参数校验异常
+            log.error("Impl Error:", e);
+            return CommonResult.failed(ResultCode.SYS_PARAMS_ERROR);
         } else {
             // 其他异常
             log.error("Error:", e);

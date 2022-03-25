@@ -31,31 +31,11 @@ public class OrderFinishVO {
     private String orderNum;
 
     @ApiModelProperty(
-            name = "userId",
-            value = "用户 ID",
-            required = true,
-            example = "1",
-            position = 2
-    )
-    @Positive(message = "不合法的用户 ID")
-    private Long userId;
-
-    @ApiModelProperty(
-            name = "carId",
-            value = "车辆 ID",
-            required = true,
-            example = "1",
-            position = 3
-    )
-    @Positive(message = "不合法的车辆 ID")
-    private Long carId;
-
-    @ApiModelProperty(
             name = "operatorId",
             value = "员工 ID",
             required = true,
             example = "1",
-            position = 4
+            position = 2
     )
     @Positive(message = "不合法的员工 ID")
     private Long operatorId;
@@ -63,9 +43,9 @@ public class OrderFinishVO {
     @ApiModelProperty(
             name = "finishTime",
             value = "订单结束时间",
-            example = "2022-03-21 22:35:39",
+            example = "2022-03-21T22:35:39Z",
             required = true,
-            position = 5
+            position = 3
     )
     private LocalDateTime finishTime;
 
@@ -74,7 +54,7 @@ public class OrderFinishVO {
             value = "还车门店 ID",
             example = "1",
             required = true,
-            position = 6
+            position = 4
     )
     private Long finishStoreId;
 
@@ -82,7 +62,7 @@ public class OrderFinishVO {
             name = "status",
             value = "订单状态",
             example = "COMPLETED",
-            position = 7
+            position = 5
     )
     private String status;
 

@@ -82,7 +82,7 @@ public class OrderController {
                                                     @RequestParam(value = "status", required = false) String status,
                                                     @RequestParam(value = "totalPrice", required = false) Double totalPrice,
                                                     @RequestParam(value = "startTime", required = false) String startTime,
-                                                    @RequestParam(value = "startTime", required = false) String finishTime) {
+                                                    @RequestParam(value = "finishTime", required = false) String finishTime) {
         return orderService.select(id, orderNum, userId, carId, operatorId, status, totalPrice, startTime, finishTime);
     }
 
