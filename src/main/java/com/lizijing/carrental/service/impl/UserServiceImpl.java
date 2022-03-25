@@ -58,8 +58,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                     .setRoleId(RoleEnum.valueOf(userAddVO.getRoleName()).ordinal() + 1);
             userRoleService.saveOrUpdate(addUserRole);
         }
-        res.put("userInfo", addUser);
-        res.put("userRole", addUserRole);
+        res.put("userInfo", userinfoMapper.selectById(addUser.getId()));
         return CommonResult.success("add user success", res);
     }
 

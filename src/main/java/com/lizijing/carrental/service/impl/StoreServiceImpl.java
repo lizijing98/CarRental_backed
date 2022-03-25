@@ -77,7 +77,7 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
         Map<Object, Object> res = new HashMap<>(8);
         Store addStore = BeanUtil.copyProperties(storeAddVO, Store.class);
         this.save(addStore);
-        res.put("storeInfo", addStore);
+        res.put("storeInfo", storeMapper.selectById(addStore.getId()));
         return CommonResult.success("add store success", res);
     }
 
