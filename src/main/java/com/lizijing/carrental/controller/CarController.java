@@ -80,8 +80,8 @@ public class CarController {
             @ApiImplicitParam(paramType = "query", name = "model", value = "型号", example = "途锐", allowEmptyValue = true, dataTypeClass = String.class),
             @ApiImplicitParam(paramType = "query", name = "storeName", value = "车辆所在门店", example = "公司总仓库", allowEmptyValue = true, dataTypeClass = String.class),
             @ApiImplicitParam(paramType = "query", name = "type", value = "车型", example = "轿车", allowEmptyValue = true, dataTypeClass = String.class),
-            @ApiImplicitParam(paramType = "query", name = "createTime", value = "入库时间", example = "2022-03-08T00:00:00Z", allowEmptyValue = true, dataTypeClass = LocalDateTime.class),
-            @ApiImplicitParam(paramType = "query", name = "isUsable", value = "是否可用", example = "true", allowEmptyValue = true, dataTypeClass = Boolean.class),
+            @ApiImplicitParam(paramType = "query", name = "createTime", value = "入库时间", example = "2022-03-08T00:00:00Z", allowEmptyValue = true, dataTypeClass = String.class),
+            @ApiImplicitParam(paramType = "query", name = "isDisable", value = "是否禁用", example = "true", allowEmptyValue = true, dataTypeClass = Boolean.class),
     })
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     public CommonResult<Map<Object, Object>> select(@RequestParam(value = "id", required = false) @Positive(message = "不合法的车辆 ID") Integer id,
@@ -89,9 +89,9 @@ public class CarController {
                                                     @RequestParam(value = "model", required = false) String model,
                                                     @RequestParam(value = "storeName", required = false) String storeName,
                                                     @RequestParam(value = "type", required = false) String type,
-                                                    @RequestParam(value = "createTime", required = false) LocalDateTime createTime,
-                                                    @RequestParam(value = "isUsable", required = false) Boolean isUsable) {
-        return carService.select(id, carNumber, model, storeName, type, createTime, isUsable);
+                                                    @RequestParam(value = "createTime", required = false) String createTime,
+                                                    @RequestParam(value = "isDisable", required = false) Boolean isDisable) {
+        return carService.select(id, carNumber, model, storeName, type, createTime, isDisable);
     }
 
     @ApiOperation(value = "修改车辆信息")

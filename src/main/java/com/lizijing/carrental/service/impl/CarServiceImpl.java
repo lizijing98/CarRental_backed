@@ -18,7 +18,6 @@ import com.lizijing.carrental.service.CarService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -94,10 +93,10 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
     public CommonResult<Map<Object, Object>> updateOne(CarUpdateVO carUpdateVO) {
         Map<Object, Object> res = new HashMap<>(8);
         Car updateCar = BeanUtil.copyProperties(carUpdateVO, Car.class);
-        String oldStoreName = carMapper.getStoreName(updateCar.getId());
         // 检查是否更改车辆所在位置
-        if (updateCar.getStoreName() != null && !storeService.removeCar(oldStoreName, updateCar.getStoreName())) {
-            throw new ImplException(ResultCode.STORE_ERROR);
+        if (carUpdateVO.getStoreName() != null) {
+            String oldStoreName = carMapper.getStoreName(updateCar.getId());
+            storeService.removeCar(oldStoreName, carUpdateVO.getStoreName());
         }
         this.updateById(updateCar);
         res.put("carInfo", updateCar);
@@ -105,7 +104,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
     }
 
     @Override
-    public CommonResult<Map<Object, Object>> select(Integer id, String carNumber, String model, String storeName, String type, LocalDateTime createTime, Boolean isUsable) {
+    public CommonResult<Map<Object, Object>> select(Integer id, String carNumber, String model, String storeName, String type, String createTime, Boolean isDisable) {
         Map<Object, Object> res = new LinkedHashMap<>();
         LambdaQueryWrapper<Car> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(id != null, Car::getId, id)
@@ -113,8 +112,8 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
                 .eq(StrUtil.isNotBlank(model), Car::getModel, model)
                 .eq(StrUtil.isNotBlank(storeName), Car::getStoreName, storeName)
                 .eq(StrUtil.isNotBlank(type), Car::getType, type)
-                .ge(StrUtil.isNotBlank(createTime.toString()), Car::getCreateTime, createTime)
-                .eq(isUsable != null, Car::getIsUsable, isUsable);
+                .ge(StrUtil.isNotBlank(createTime), Car::getCreateTime, createTime)
+                .eq(isDisable != null, Car::getIsDisable, Boolean.TRUE.equals(isDisable) ? 1 : 0);
         List<Car> cars = carMapper.selectList(queryWrapper);
         res.put("carInfos", cars);
         return CommonResult.success("get infos success", res);

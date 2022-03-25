@@ -65,7 +65,11 @@ public class StoreServiceImpl extends ServiceImpl<StoreMapper, Store> implements
     public boolean removeCar(String oldStore, String newStore) {
         // 减少原门店库存成功且新增新门店库存成功才成功，否则失败
         // todo:需要考虑回滚
-        return reduceCarStock(oldStore) && addCarStock(newStore);
+        try {
+            return reduceCarStock(oldStore) && addCarStock(newStore);
+        } catch (Exception e) {
+            throw new ImplException(ResultCode.STORE_ERROR);
+        }
     }
 
     @Override

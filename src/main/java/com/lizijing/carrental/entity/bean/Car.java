@@ -84,9 +84,9 @@ public class Car implements Serializable {
     @TableLogic(value = "0", delval = "1")
     private Boolean isDeleted;
 
-    @ApiModelProperty("可用标记,0 为可用,1 为不可用")
-    @TableField(value = "is_usable", fill = FieldFill.INSERT)
-    private Boolean isUsable;
+    @ApiModelProperty("禁用标记,0 代表未禁用,1 代表已禁用")
+    @TableField(value = "is_disable", fill = FieldFill.INSERT)
+    private Boolean isDisable;
 
 
 }

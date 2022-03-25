@@ -19,7 +19,7 @@ CREATE TABLE `tb_car`
     create_time TIMESTAMP                                     NULL DEFAULT NOW() COMMENT '创建时间',
     update_time TIMESTAMP                                     NULL COMMENT '更新时间',
     is_deleted  TINYINT(1)                                    NULL DEFAULT 0 COMMENT '删除标记,0 代表未删除,1 代表已删除',
-    is_usable   TINYINT(1)                                    NULL DEFAULT 0 COMMENT '可用标记,0 为可用,1 为不可用',
+    is_disable  TINYINT(1)                                    NULL DEFAULT 0 COMMENT '禁用标记,0 代表未禁用,1 代表已禁用',
     PRIMARY KEY pk_car_id (id) USING BTREE COMMENT '车辆 ID 主键',
     UNIQUE INDEX idx_car_num (car_number) USING BTREE COMMENT '车牌号唯一索引'
 )

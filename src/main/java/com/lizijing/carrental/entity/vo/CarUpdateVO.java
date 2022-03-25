@@ -124,10 +124,10 @@ public class CarUpdateVO {
     private String status;
 
     @ApiModelProperty(
-            name = "is_usable",
-            value = "是否可用",
+            name = "is_disable",
+            value = "是否禁用",
             allowEmptyValue = true,
             position = 12
     )
-    private Boolean isUsable;
+    private Boolean isDisable;
 }

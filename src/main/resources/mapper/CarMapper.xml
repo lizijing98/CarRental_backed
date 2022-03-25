@@ -18,7 +18,7 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="is_deleted" property="isDeleted"/>
-        <result column="is_usable" property="isUsable"/>
+        <result column="is_disable" property="isDisable"/>
     </resultMap>
     <select id="getStoreName" resultType="java.lang.String">
         SELECT c.store_name
