@@ -1,5 +1,6 @@
 package com.lizijing.carrental.entity.vo;
 
+import com.lizijing.carrental.utils.validation.RoleName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,6 @@ public class UserEnhanceVO {
             example = "USER",
             position = 2
     )
+    @RoleName
     private String roleName;
-    // todo:增加用户角色校验
 }

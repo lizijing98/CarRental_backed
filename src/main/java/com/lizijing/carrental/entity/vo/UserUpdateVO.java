@@ -1,5 +1,6 @@
 package com.lizijing.carrental.entity.vo;
 
+import com.lizijing.carrental.utils.validation.Mobile;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -67,8 +68,8 @@ public class UserUpdateVO {
             example = "17612341234",
             position = 6
     )
+    @Mobile
     private String phoneNumber;
-    // todo:增加手机号校验
 
     @ApiModelProperty(
             name = "email",
