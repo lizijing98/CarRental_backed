@@ -1,6 +1,7 @@
 package com.lizijing.carrental.entity.vo;
 
 import com.lizijing.carrental.utils.validation.Mobile;
+import com.lizijing.carrental.utils.validation.Sex;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Positive;
 
 /**
  * <p> 修改用户信息接口参数 </p>
@@ -28,6 +30,7 @@ public class UserUpdateVO {
             required = true,
             position = 1
     )
+    @Positive(message = "不合法的用户 ID")
     private Integer id;
 
     @ApiModelProperty(
@@ -60,6 +63,7 @@ public class UserUpdateVO {
             example = "男",
             position = 5
     )
+    @Sex
     private String sex;
 
     @ApiModelProperty(

@@ -28,6 +28,7 @@ public class StoreUpdateVO {
             example = "1",
             position = 1
     )
+    @Positive(message = "不合法的门店 ID")
     private Integer id;
 
     @ApiModelProperty(

@@ -1,5 +1,6 @@
 package com.lizijing.carrental.entity.vo;
 
+import com.lizijing.carrental.utils.validation.PlantNum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,7 @@ public class CarUpdateVO {
             example = "苏A00000",
             position = 2
     )
+    @PlantNum
     private String carNumber;
 
     @ApiModelProperty(

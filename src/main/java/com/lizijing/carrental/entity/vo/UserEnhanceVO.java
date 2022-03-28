@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Positive;
+
 /**
  * <p> 修改用户角色接口参数 </p>
  *
@@ -26,6 +28,7 @@ public class UserEnhanceVO {
             example = "1",
             position = 1
     )
+    @Positive(message = "不合法的用户 ID")
     private Long userId;
 
     @ApiModelProperty(

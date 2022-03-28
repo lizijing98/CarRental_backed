@@ -1,5 +1,6 @@
 package com.lizijing.carrental.entity.vo;
 
+import com.lizijing.carrental.utils.validation.isNum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ public class RepairUpdateVO {
             example = "1",
             position = 1
     )
+    @Positive(message = "不合法的维修单 ID")
     private Long id;
 
     @ApiModelProperty(
@@ -34,6 +36,7 @@ public class RepairUpdateVO {
             example = "REP20220317000001",
             position = 2
     )
+    @isNum(message = "维修单编号格式不正确")
     private String repairNum;
 
     @ApiModelProperty(

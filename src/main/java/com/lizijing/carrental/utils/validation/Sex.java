@@ -1,6 +1,6 @@
 package com.lizijing.carrental.utils.validation;
 
-import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.ArrayUtil;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
@@ -9,27 +9,28 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * <p> 自定义手机号校验 </p>
+ * <p> 自定义性别校验 </p>
  *
  * @author LiZijing
- * @date 2022/3/25
+ * @date 2022/3/28
  */
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = {Mobile.Validate.class})
-public @interface Mobile {
-    String message() default "手机号格式不正确";
+@Constraint(validatedBy = {Sex.Validate.class})
+public @interface Sex {
+    String[] SEX = {"男", "女", "保密", ""};
+
+    String message() default "不合法的性别输入";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
-    class Validate implements ConstraintValidator<Mobile, String> {
-
+    class Validate implements ConstraintValidator<Sex, String> {
         @Override
         public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-            return Validator.isMobile(s);
+            return ArrayUtil.contains(SEX, s);
         }
     }
 }

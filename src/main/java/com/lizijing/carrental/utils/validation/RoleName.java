@@ -28,10 +28,6 @@ public @interface RoleName {
     Class<? extends Payload>[] payload() default {};
 
     class Validate implements ConstraintValidator<RoleName, String> {
-        @Override
-        public void initialize(RoleName constraintAnnotation) {
-            ConstraintValidator.super.initialize(constraintAnnotation);
-        }
 
         @Override
         public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {

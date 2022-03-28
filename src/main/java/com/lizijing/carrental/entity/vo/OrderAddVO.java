@@ -67,6 +67,7 @@ public class OrderAddVO {
             example = "1",
             position = 5
     )
+    @Positive(message = "不合法的门店 ID")
     private Long startStoreId;
 
     @ApiModelProperty(

@@ -1,5 +1,6 @@
 package com.lizijing.carrental.entity.vo;
 
+import com.lizijing.carrental.utils.validation.isNum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class OrderFinishVO {
             required = true,
             position = 1
     )
+    @isNum(message = "订单编号格式不正确")
     private String orderNum;
 
     @ApiModelProperty(
@@ -56,6 +58,7 @@ public class OrderFinishVO {
             required = true,
             position = 4
     )
+    @Positive(message = "不合法的门店 ID")
     private Long finishStoreId;
 
     @ApiModelProperty(

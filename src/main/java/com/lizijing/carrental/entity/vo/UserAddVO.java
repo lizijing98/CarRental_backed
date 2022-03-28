@@ -2,11 +2,14 @@ package com.lizijing.carrental.entity.vo;
 
 import com.lizijing.carrental.utils.validation.Mobile;
 import com.lizijing.carrental.utils.validation.RoleName;
+import com.lizijing.carrental.utils.validation.Sex;
+import com.lizijing.carrental.utils.validation.Username;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 
@@ -29,8 +32,9 @@ public class UserAddVO {
             example = "test-user1",
             position = 1
     )
+    @Length(max = 10,message = "用户名支持 0~10 位字符")
+    @Username
     private String username;
-    //todo:增加用户名的校验
 
     @ApiModelProperty(
             name = "nickname",
@@ -63,6 +67,7 @@ public class UserAddVO {
             example = "男",
             position = 5
     )
+    @Sex
     private String sex;
 
     @ApiModelProperty(

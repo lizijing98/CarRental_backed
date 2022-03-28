@@ -1,5 +1,6 @@
 package com.lizijing.carrental.entity.vo;
 
+import com.lizijing.carrental.utils.validation.PlantNum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class CarAddVO {
             position = 1
     )
     @NotBlank(message = "车牌号不能为空")
+    @PlantNum
     private String carNumber;
 
     @ApiModelProperty(
